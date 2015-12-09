@@ -35,3 +35,13 @@ opened{C<:Clay}(x::Flex{CLCL,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
 opened{C<:Clay}(x::Flex{CLOP,C}) = OpOp(prevFloat(x.lo), x.hi)
 opened{C<:Clay}(x::Flex{OPCL,C}) = OpOp(x.lo, nextFloat(x.hi))
 opened{C<:Clay}(x::Flex{OPOP,C}) = x
+
+clopened{C<:Clay}(x::Flex{CLCL,C}) = ClOp(x.lo, nextFloat(x.hi))
+clopened{C<:Clay}(x::Flex{CLOP,C}) = x
+clopened{C<:Clay}(x::Flex{OPCL,C}) = ClOp(x.lo, nextFloat(x.hi))
+clopened{C<:Clay}(x::Flex{OPOP,C}) = ClOp(x.lo, x.hi)
+
+opclosed{C<:Clay}(x::Flex{CLCL,C}) = OpCl(prevFloat(x.lo), x.hi)
+opclosed{C<:Clay}(x::Flex{CLOP,C}) = OpCl(prevFloat(x.lo), x.hi)
+opclosed{C<:Clay}(x::Flex{OPCL,C}) = x
+opclosed{C<:Clay}(x::Flex{OPOP,C}) = OpCl(x.lo, x.hi)
