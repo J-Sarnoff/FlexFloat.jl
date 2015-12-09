@@ -72,3 +72,20 @@ convert{S<:Sculpt}(::Type{S}, x::S) = x # quiet ambig notice
 convert{S<:Sculpt,T<:Real}(::Type{S}, x::T) = convert(Flex{S,Float64}, convert(Float64,x))
 promote_rule{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
 promote_rule{S<:Sculpt,T<:Real}(::Type{S}, ::Type{T}) = Flex{S,Float64}
+
+# coverting to a single floating point value
+# unfortunately this is needed to interoperate with other types
+function convert{S<:Sculpt,C<:Clay}(::Type{C}, x::Flex{S,C})
+    if (x.lo == x.hi)
+       x.lo
+    else
+      y = opened(x)
+      if (y.lo == y.hi)
+         y.lo
+      else
+         mid(y)
+      end
+    end
+end    
+    
+      
