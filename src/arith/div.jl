@@ -55,19 +55,12 @@ for (fn,loa,lob,hia,hib) in [ (:divLteLte, :(a.hi), :(b.lo), :(a.lo), :(b.hi)),
   end
 end
 
-
-(/){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (/)(a, Flex{S,C}(b))
-(/){S<:Sculpt,C<:Clay}(a::C, b::Flex{S,C}) = (/)(Flex{S,C}(a), b)
-
-(/){S<:Sculpt,F<:WorkInt}(a::Flex{S,Float64}, b::F) = (/)(a, Flex{S,Float64}(convert(Float64,b)))
-(/){S<:Sculpt,F<:WorkInt}(a::F, b::Flex{S,Float64}) = (/)(Flex{S,Float64}(convert(Float64,a)), b)
-(/){S<:Sculpt,F<:WorkInt}(a::Flex{S,Float32}, b::F) = (/)(a, Flex{S,Float32}(convert(Float32,b)))
-(/){S<:Sculpt,F<:WorkInt}(a::F, b::Flex{S,Float32}) = (/)(Flex{S,Float32}(convert(Float32,a)), b)
-
-
 function divisorContainsZero{S<:Sculpt,W<:Sculpt,C<:Clay}(a::Flex{S,C}, b::Flex{W,C})
     throw(ErrorException("Divisor contains zero: $(a) / $(b)"))
 end
+
+(/){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (/)(a, Flex{S,C}(b))
+(/){S<:Sculpt,C<:Clay}(a::C, b::Flex{S,C}) = (/)(Flex{S,C}(a), b)
 
 (/){S<:Sculpt,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (/)(a, Flex{S,C}(convert(C,b)))
 (/){S<:Sculpt,C<:Clay,T<:Real}(a::T, b::Flex{S,C}) = (/)(Flex{S,C}(convert(C,a)), b)
