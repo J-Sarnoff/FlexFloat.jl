@@ -1,7 +1,7 @@
 
 sculpt{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = S
 clay{S<:Sculpt, C<:Clay}(x::Flex{S,C})   = C
-value{S<:Sculpt, C<:Clay}(x::Flex{S,C})  = (lo,hi)
+values{S<:Sculpt, C<:Clay}(x::Flex{S,C})  = (lo,hi)
 
 # each boundry is closed(false) or Open (true)
 # get boundries from Sculpt
