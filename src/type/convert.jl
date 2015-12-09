@@ -48,12 +48,12 @@ OO(lo::Real,hi::Real) = FlexLoHi(OpOp, lo, hi)
 
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::C) = Flex(S,x,x)
 
-convert{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}},x::F)
+function convert{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}},x::F)
    fp = convert(Float64,x)
    Flex(S, fp, fp)
 end
 
-convert{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}},x::I)
+function convert{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}},x::I)
    fp = convert(Float64,x)
    Flex(S, fp, fp)
 end
