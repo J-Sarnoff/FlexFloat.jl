@@ -1,7 +1,9 @@
    import Main.Distributions:cdf,pdf,quantile
    typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Main.Distributions.Continuous}
 
+   # quash ambiguity
    cdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
+   pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
    
 
    @inline negabs(x::Clay) = -abs(x)
