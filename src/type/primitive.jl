@@ -31,7 +31,7 @@ boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(rei
 
 closed{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
 
-opened{C<:Clay}(x::Flex{ClCl,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
-opened{C<:Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
-opened{C<:Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
-opened{C<:Clay}(x::Flex{OpOp,C}) = x
+opened{C<:Clay}(x::Flex{CLCL,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
+opened{C<:Clay}(x::Flex{CLOP,C}) = OpOp(prevFloat(x.lo), x.hi)
+opened{C<:Clay}(x::Flex{OPCL,C}) = OpOp(x.lo, nextFloat(x.hi))
+opened{C<:Clay}(x::Flex{OPOP,C}) = x
