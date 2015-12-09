@@ -8,7 +8,7 @@
   
   
   The alternative implementation, converting to [U]Int and adding/subtracting 1,
-  returns NaN when given +/-Inf<\br> -- and checking for Inf adds branching. 
+  returns NaN when given +/-Inf<br\> -- and checking for Inf adds branching. 
   
   ref:
   'Predecessor and Successor In Rounding To Nearest' by Siegried M. Rump
