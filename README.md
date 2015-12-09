@@ -1,2 +1,3 @@
 # FlexFloat.jl
-These floating point values that stretch to maintain accuracy.
+#### (work in progress)
+These floating point values stretch to maintain accuracy.
