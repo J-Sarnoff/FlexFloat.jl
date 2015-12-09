@@ -49,7 +49,7 @@ CO{C<:Clay}(x::C) = Flex(ClOp, x)
 OC{C<:Clay}(x::C) = Flex(OpCl, x)
 OO{C<:Clay}(x::C) = Flex(OpOp, x)
 
-CC{C<:Clay}(lo::C,hi::C) = FlexLoHi(ClCl, lo::C, hi::C)
+CC{C<:Clay}(lo::C,hi::C) = FlexLoHi(ClCl, lo, hi)
 function CO{C<:Clay}(lo::C,hi::C) 
    if lo>hi
       Flex(OpCl, hi, lo)
@@ -64,5 +64,5 @@ function OC{C<:Clay}(lo::C,hi::C)
       Flex(OpCl, hi, lo)
    end
 end   
-OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OpOp, lo::C, hi::C)
+OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OpOp, lo, hi)
 
