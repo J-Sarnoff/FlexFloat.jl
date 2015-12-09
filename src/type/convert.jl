@@ -43,4 +43,4 @@ function OC(lo::Real,hi::Real)
       Flex(OpCl,low, high)
    end
 end   
-OO(lo::Real,hi:Real) = FlexLoHi(OpOp, lo, hi)
+OO(lo::Real,hi::Real) = FlexLoHi(OpOp, lo, hi)
