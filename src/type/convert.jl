@@ -57,4 +57,5 @@ promote_rule{S<:Sculpt,C<:Clay,T<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{T}) =
 promote_rule{S<:Sculpt,C<:Clay,T<:Integer}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
 promote_rule{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
 
-
+promote_rule{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{F}) = Flex{S,promote_type{C,F}}
+promote_rule{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}}, ::Type{I}) = Flex{S,promote_type{C,I}}
