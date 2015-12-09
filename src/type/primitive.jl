@@ -5,10 +5,12 @@ value{S<:Sculpt, C<:Clay}(x::Flex{S,C})  = (lo,hi)
 
 # each boundry is closed(false) or Open (true)
 # get boundries from Sculpt
-boundries{C<:Clay}(x::Flex{ClCl,C}) = (false,false)
-boundries{C<:Clay}(x::Flex{ClOp,C}) = (false,true)
-boundries{C<:Clay}(x::Flex{OpCl,C}) = (true,false)
-boundries{C<:Clay}(x::Flex{OpOp,C}) = (true,true)
+boundries(::Type{ClCl}) = (false,false)
+boundries(::Type{ClOp}) = (false,true)
+boundries(::Type{OpCl}) = (true,false)
+boundries(::Type{OpOp}) = (true,true)
+# get Sculpt from boundries
+boundries{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = boundries(S)
 # get Sculpt from boundries
 const Boundries = [ClCl, OpCl, ClOp, OpOp]
 boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(reinterpret(Int8,hi)<<1) ]
