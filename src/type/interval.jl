@@ -22,7 +22,7 @@ function lub{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     (S)(minmax(lo,hi)...)
 end
 
-# supremum (join) and an infimum (meet).
+# supremum (join, interval [convex] hull) and an infimum (meet, intersection).
 function supremum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = min(x.lo,y.lo)
     hi = max(x.hi,y.hi)
@@ -34,6 +34,7 @@ function infimum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     hi = min(x.hi,y.hi)
     (S)(minmax(lo,hi)...)
 end
+
 
 # from "Standardized notation in interval analysis", R. B. Kearfott, et. al.
 # width(diameter), radius, midpoint, mignitude, magnitude, deviation, absolutevalue
