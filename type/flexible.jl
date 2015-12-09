@@ -65,3 +65,16 @@ function OC{C<:Clay}(lo::C,hi::C)
    end
 end   
 OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OpOp, lo::C, hi::C)
+
+sculpt{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = S
+clay{S<:Sculpt, C<:Clay}(x::Flex{S,C})   = C
+value{S<:Sculpt, C<:Clay}(x::Flex{S,C})  = (lo,hi)
+
+# each boundry is closed(false) or Open (true)
+boundries{C<:Clay}(x::Flex{ClCl,C}) = (false,false)
+boundries{C<:Clay}(x::Flex{ClOp,C}) = (false,true)
+boundries{C<:Clay}(x::Flex{OpCl,C}) = (true,false)
+boundries{C<:Clay}(x::Flex{OpOp,C}) = (true,true)
+
+const Boundries = [ClCl, OpCl, ClOp, OpOp]
+boundries{B<:Bool}(lo::B,hi::B) = Boundries[ 1+lo+(hi<<1) ]
