@@ -6,6 +6,7 @@
    cdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
    pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
    pdf{S<:Sculpt, C<:Clay}(d::AbstractMixtureDist, x::Flex{S,C}) = ErrorException("Not Implemented")
+   pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.AbstractMixtureModel{Main.Distributions.Univariate}, x::Flex{S,C}) = ErrorException("Not Implemented")
    
 
    @inline negabs(x::Clay) = -abs(x)
