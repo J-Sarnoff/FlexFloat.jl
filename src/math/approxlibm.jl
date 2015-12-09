@@ -33,7 +33,7 @@ for (fn) in (:exp, :expm1, :log, :log1p,
             lo = prevFloat(lo)
             hi = nextFloat(hi)
             
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -61,7 +61,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                     hi = max(hi, ($fn)(x.hi))
                 end
             end
-            Flex{ClCl,C}(lo,hi)
+            Flex{C:CL,C}(lo,hi)
         end
     end
 end
