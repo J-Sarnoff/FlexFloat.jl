@@ -47,6 +47,8 @@ end
 OO(lo::Real,hi::Real) = FlexLoHi(OPOP, lo, hi)
 
 
+convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, hi::C, lo::C) = Flex(S,hi,lo)
+
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::C) = Flex(S,x,x)
 promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{C}) = Flex{S,C}
 
