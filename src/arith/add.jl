@@ -11,12 +11,12 @@ end
 function (+){S<:Sculpt, T<:Sculpt, C<:Clay}(a::Flex{S,C}, b::Flex{T,C})
     aLoIsOpen, aHiIsOpen = boundries(S)
     bLoIsOpen, bHiIsOpen = boundries(T)
-    cType = boundries(aLoIsOpen|bLoIsOpen, aHiIsOpen|bHiIsOpen)
+    sculpting = boundries(aLoIsOpen|bLoIsOpen, aHiIsOpen|bHiIsOpen)
     
     lo = (+)(a.lo, b.lo, RoundDown)
     hi = (+)(a.hi, b.hi, RoundUp)
        
-    cType(lo,hi)
+   Flex{sculpting, C}(lo,hi)
 end
 
 (+){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (+)(a, Flex{S,C}(b))
