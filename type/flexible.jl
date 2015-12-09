@@ -77,4 +77,4 @@ boundries{C<:Clay}(x::Flex{OpCl,C}) = (true,false)
 boundries{C<:Clay}(x::Flex{OpOp,C}) = (true,true)
 
 const Boundries = [ClCl, OpCl, ClOp, OpOp]
-boundries{B<:Bool}(lo::B,hi::B) = Boundries[ 1+lo+(hi<<1) ]
+boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(reinterpret(Int8,hi)<<1) ]
