@@ -44,4 +44,8 @@ include("arith/mul.jl")
 include("arith/div.jl")
 include("arith/sqrt.jl")
 
+if isdefined(Main, :Distributions)
+    include("math/distributions.jl")
+end
+
 end # module
