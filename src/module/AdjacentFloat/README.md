@@ -7,8 +7,8 @@
   (prevfloat(Inf)==Inf makes more sense to me, and likely is more helpful).
   
   
-  The alternative implementation, converting to [U]Int and adding/subtracting 1,
-  returns NaN when given +/-Inf and adds branching. 
+  Alternatively, converting to [U]Int and adding/subtracting 1,
+  returns NaN when given +/-Inf and would add branching. 
   
   ref:
   'Predecessor and Successor In Rounding To Nearest' by Siegried M. Rump
