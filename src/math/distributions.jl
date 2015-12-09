@@ -65,7 +65,7 @@ pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorEx
                    lo = ($fn)(d, negabs(x.lo))
                end
                if hiIsOpen
-                   with_rounding(F, RoundUp) do
+                   with_rounding(C, RoundUp) do
                        hi = ($fn)(d, negabs(x.hi))
                    end
                else
