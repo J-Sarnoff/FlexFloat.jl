@@ -28,7 +28,7 @@ for (fn) in (:acsc, :asec, :acot,
             lo = prevFloat(lo)
             hi = nextFloat(hi)
             
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -54,7 +54,7 @@ for (fn) in (:exp, :expm1, :atan, :sinh, :tanh)
             else
                 hi = ($fn)(x.hi, RoundNearest)
             end
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -94,7 +94,7 @@ for (fn) in (:sin, :cos, :tan, :csc, :sec, :cot, :cosh)
                 end
             end
 
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -129,7 +129,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                     hi = ($fn)(hi)
                 end     
             end
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -154,7 +154,7 @@ for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
                 hi = ($fn)(hi, RoundNearest)
             end
             
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -184,7 +184,7 @@ for (fn, domainMin, domainMax) in ((:asin, -1.0, 1.0), (:atanh, -1.0, 1.0), (:er
                 hi = ($fn)(hi, RoundNearest)
             end
 
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -214,7 +214,7 @@ for (fn, domainMin, domainMax) in ((:acos, -1.0, 1.0),)
                 hi = ($fn)(hi, RoundNearest)
             end
 
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
@@ -258,7 +258,7 @@ for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (
                     hi = ($fn)(hi, RoundNearest)
                 end
             end
-            Flex{ClCl,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
