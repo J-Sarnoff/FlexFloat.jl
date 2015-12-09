@@ -1,5 +1,5 @@
-widen{S<:Sculpt,C<:Clay}(a::Flex{S,C}) = Flex{S,C}(prevFloat(a.lo), nextFloat(a.hi))
-function narrow{S<:Sculpt,C<:Clay}(a::Flex{S,C})
+widened{S<:Sculpt,C<:Clay}(a::Flex{S,C}) = Flex{S,C}(prevFloat(a.lo), nextFloat(a.hi))
+function narrowed{S<:Sculpt,C<:Clay}(a::Flex{S,C})
    lo, hi = nextFloat(a.lo), prevFloat(a.hi)
    if (lo > hi)
        a
