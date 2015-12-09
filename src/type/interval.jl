@@ -22,13 +22,14 @@ function lub{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     (S)(minmax(lo,hi)...)
 end
 
-function sup{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+# supremum (join) and an infimum (meet).
+function supremum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = min(x.lo,y.lo)
     hi = max(x.hi,y.hi)
     (S)(minmax(lo,hi)...)
 end
 
-function inf{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+function infimum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = max(x.lo,y.lo)
     hi = min(x.hi,y.hi)
     (S)(minmax(lo,hi)...)
