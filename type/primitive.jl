@@ -13,6 +13,12 @@ boundries{C<:Clay}(x::Flex{OpOp,C}) = (true,true)
 const Boundries = [ClCl, OpCl, ClOp, OpOp]
 boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(reinterpret(Int8,hi)<<1) ]
 
+# select type corresponding to negation of type given
+@inline negate(::Type{ClCl}) = ClCl
+@inline negate(::Type{ClOp}) = OpCl
+@inline negate(::Type{OpCl}) = ClOp
+@inline negate(::Type{OpOp}) = OpOp
+
 #=
     Closed bounds are reached but Not Exceeded.
     Open bounds are approached but Not Reached.
