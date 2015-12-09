@@ -36,6 +36,19 @@ julia> a=ClCl(2); b=OpCl(1.5, 2); a+b, a-b, a*b, a/b
 julia> a=OpCl(1.5, 2); b=2; a+b, a-b, a*b, a/b
 ( ⟪3.5, 4.0⟩, -⟨0.5, 0.0⟫, ⟪3.0, 4.0⟩, ⟪0.75, 1.0⟩ )
 
+```
+
+###And More
+
+```julia
+
+julia> using FlexFloat
+julia> using Polynomials
+julia> p = Poly([4.0,8,1,-5,-1,1]);
+julia> polyval(p, ClOp(2.5, 2.5+eps(2.5))
+⟨10.718749999999991, 10.718750000000039⟫
+
+
 
 ```
 
