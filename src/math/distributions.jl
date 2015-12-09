@@ -43,7 +43,7 @@
                  end
                end
 
-               Flex{ClCl,C}(minmax(lo,hi)...)
+               Flex{CLCL,C}(minmax(lo,hi)...)
            end
        end
    end
@@ -86,7 +86,7 @@
                  end
                end
 
-               Flex{ClCl,C}(minmax(lo,hi)...)
+               Flex{CLCL,C}(minmax(lo,hi)...)
            end
        end
    end
@@ -135,7 +135,7 @@
                  end
                end
 
-               Flex{ClCl,C}(minmax(lo,hi)...)
+               Flex{CLCL,C}(minmax(lo,hi)...)
            end
        end
    end
