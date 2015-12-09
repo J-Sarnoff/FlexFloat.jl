@@ -21,7 +21,7 @@ abstract Supple{S,C} <: EnhancedFloat  # EnhancedFloat pulls in Real
          #        C parameterizes the internal arithmetic type at work
          #      S paramterizes boundedness as OpOp, ClOp, OpCl or ClCl
 
-immutable Flex{S<:Sculpt, C<:Clay} <: Real #Supple{S,C}
+immutable Flex{S<:Sculpt, C<:Clay} <: Real
     lo::C
     hi::C
 end
