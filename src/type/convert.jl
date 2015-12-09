@@ -66,13 +66,14 @@ promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLOP,C}
 promote_rule{C<:Clay}(::Type{Flex{OPCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{OPCL,C}
-
+#=
 promote_rule(::Type{CLCL}, ::Type{CLOP}) = CLCL
 promote_rule(::Type{CLCL}, ::Type{OPCL}) = CLCL
 promote_rule(::Type{CLOP}, ::Type{OPCL}) = CLCL
 promote_rule(::Type{CLCL}, ::Type{OPOP}) = CLCL
 promote_rule(::Type{CLOP}, ::Type{OPOP}) = CLOP
 promote_rule(::Type{OPCL}, ::Type{OPOP}) = OPCL
+=#
 
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, hi::C, lo::C) = Flex(S,hi,lo)
 convert{S<:Sculpt,C<:Clay}(::Type{S}, hi::C, lo::C) = convert(Flex{S,C},hi,lo)
