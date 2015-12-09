@@ -62,6 +62,6 @@ end
 (*){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (*)(a, Flex{S,C}(b))
 (*){S<:Sculpt,C<:Clay}(a::C, b::Flex{S,C}) = (*)(Flex{S,C}(a), b)
 
-(*){S<:Sculpt,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (*)(a, Flex{S,C}(convert(C,b)))
 (*){B<:Bool,S<:Sculpt,C<:Clay}(a::B, b::Flex{S,C}) = a ? b : Flex{S,C}(0.0)
+(*){S<:Sculpt,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (*)(a, Flex{S,C}(convert(C,b)))
 (*){S<:Sculpt,C<:Clay,T<:Real}(a::T, b::Flex{S,C}) = (*)(Flex{S,C}(convert(C,a)), b)
