@@ -47,6 +47,33 @@ end
 OO(lo::Real,hi::Real) = FlexLoHi(OPOP, lo, hi)
 
 
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{CLOP,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{OPCL,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{OPOP,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{OPCL,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{CLOP,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{OPOP,C}) = closed(x)
+convert{C<:Clay}(::Type{Flex{CLOP,C}}, x::Flex{OPCL,C}) = clopened(x)
+convert{C<:Clay}(::Type{Flex{CLOP,C}}, x::Flex{CLCL,C}) = clopened(x)
+convert{C<:Clay}(::Type{Flex{CLOP,C}}, x::Flex{OPOP,C}) = clopened(x)
+convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{CLOP,C}) = opclosed(x)
+convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{CLCL,C}) = opclosed(x)
+convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{OPOP,C}) = opclosed(x)
+
+promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{CLOP,C}}) = Flex{CLCL,C}
+promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
+promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
+promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLCL,C}
+promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLOP,C}
+promote_rule{C<:Clay}(::Type{Flex{OPCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{OPCL,C}
+
+promote_rule(::Type{CLCL}, ::Type{CLOP}) = CLCL
+promote_rule(::Type{CLCL}, ::Type{OPCL}) = CLCL
+promote_rule(::Type{CLOP}, ::Type{OPCL}) = CLCL
+promote_rule(::Type{CLCL}, ::Type{OPOP}) = CLCL
+promote_rule(::Type{CLOP}, ::Type{OPOP}) = CLOP
+promote_rule(::Type{OPCL}, ::Type{OPOP}) = OPCL
+
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, hi::C, lo::C) = Flex(S,hi,lo)
 convert{S<:Sculpt,C<:Clay}(::Type{S}, hi::C, lo::C) = convert(Flex{S,C},hi,lo)
 
@@ -88,4 +115,4 @@ function convert{S<:Sculpt,C<:Clay}(::Type{C}, x::Flex{S,C})
     end
 end    
     
-      
+
