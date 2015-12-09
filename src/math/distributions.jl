@@ -86,7 +86,7 @@
 
                Flex{ClCl,C}(minmax(lo,hi)...)
            end
-       end
+
        
 #=       
    for (fn) in (:pdf,) # increasing functions (pdf(-x) == pdf(x), pdf(-x) increases)
