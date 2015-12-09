@@ -47,19 +47,14 @@ OO(lo::Real,hi::Real) = FlexLoHi(OpOp, lo, hi)
 
 
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::C) = Flex(S,x,x)
-
-function convert{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}},x::F)
-   fp = convert(Float64,x)
-   Flex(S, fp, fp)
-end
-
-function convert{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}},x::I)
-   fp = convert(Float64,x)
-   Flex(S, fp, fp)
-end
-
 promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{C}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{F}) = Flex{S,promote_type{C,F}}
-promote_rule{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}}, ::Type{I}) = Flex{S,promote_type{C,I}}
+
+convert{S<:Sculpt,C<:Clay,T<:AbstractFloat}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
+convert{S<:Sculpt,C<:Clay,T<:Integer}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
+convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
+
+promote_rule{S<:Sculpt,C<:Clay,T<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
+promote_rule{S<:Sculpt,C<:Clay,T<:Integer}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
+promote_rule{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
 
 
