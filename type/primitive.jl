@@ -21,10 +21,10 @@ boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(rei
     uncover(Flex) gives the OpOp inclusion of Flex
 =#
 
-cover{S<:Sculpt,C::Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
+cover{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
 
-uncover{C::Clay}(x::Flex{ClCl,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
-uncover{C::Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
-uncover{C::Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
-uncover{C::Clay}(x::Flex{OpOp,C}) = x
+uncover{C<:Clay}(x::Flex{ClCl,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
+uncover{C<:Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
+uncover{C<:Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
+uncover{C<:Clay}(x::Flex{OpOp,C}) = x
 
