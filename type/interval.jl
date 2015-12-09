@@ -1,3 +1,6 @@
+widen{S<:Sculpt,C<:Clay}(x::Flex{S,C})  = Flex{S,C}(prevFloat(x.lo), nextFloat(x.hi))
+narrow{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = Flex{S,C}(nextFloat(x.lo), prevFloat(x.hi))
+
 # from "Complete Interval Arithmetic and its Implementation on the Computer" by Ulrich W. Kulisch
 
 function glb{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
