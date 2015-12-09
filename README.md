@@ -1,6 +1,6 @@
 # FlexFloat.jl
 #### (work in progress)
-#####These values stretch in a way that preserves accuracy durring mathematical computations.
+#####These values stretch in a way that preserves accuracy during mathematical computations.
 
 The underlying representation is an interval with bounds that may be closed (exact) or open (inexact).  An exact bound takes the floating point value given at that boundry to be a precisely accurate quantity.  Two examples of exact quantities are counts and monetary balances. An inexact bound takes the floating point value given at the lower [higher] boundry to be largest [smallest] possible quantity to be included in the bounding value's span.  An inexact bound bound extendes away from the center of the interval, almost reaching the next lower [higher] floating point value.  Inexact bounds cover a real span that is not fully representable with machine floats -- and from that fact tend to follow results with relatively tight bounds.
 
