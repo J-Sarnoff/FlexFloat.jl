@@ -19,7 +19,7 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
 
 export Flex, ClCl, ClOp, OpCl, OpOp, CC, CO, OC, OO,
        Sculpt, Clay, 
-       widen, narrow, open, close,
+       widened, narrowed, opened, closed,
        boundries, clay, sculpt, value,
        glb, lub, sup, inf,
        dia, rad, mid, mig, mag, dev, abs, dist
