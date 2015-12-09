@@ -39,7 +39,7 @@ for (fn) in (:exp, :expm1, :log, :log1p,
 end
 
 
-#=
+#= in arith
 for (fn, domainMin) in ((:sqrt, 0.0), )
     @eval begin
         function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
