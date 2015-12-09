@@ -35,7 +35,7 @@ Special values:
  - `x` is not a number: `num` and `den` should both be zero
 =#
 
-decompose{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = decompose( mid(x) )
+#decompose{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = decompose( mid(x) )
 
 isnan{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (isnan(x.lo) | isnan(x.hi))
 isinf{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (isinf(x.lo) | isinf(x.hi))
