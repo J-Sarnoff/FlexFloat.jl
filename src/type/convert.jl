@@ -59,14 +59,14 @@ convert{C<:Clay}(::Type{Flex{CLOP,C}}, x::Flex{OPOP,C}) = clopened(x)
 convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{CLOP,C}) = opclosed(x)
 convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{CLCL,C}) = opclosed(x)
 convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{OPOP,C}) = opclosed(x)
-#=
+
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{CLOP,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLOP,C}
 promote_rule{C<:Clay}(::Type{Flex{OPCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{OPCL,C}
-=#
+
 #=
 promote_rule(::Type{CLCL}, ::Type{CLOP}) = CLCL
 promote_rule(::Type{CLCL}, ::Type{OPCL}) = CLCL
@@ -81,8 +81,6 @@ convert{S<:Sculpt,C<:Clay}(::Type{S}, hi::C, lo::C) = convert(Flex{S,C},hi,lo)
 
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::C) = Flex(S,x,x)
 convert{S<:Sculpt,C<:Clay}(::Type{S}, x::C) = convert(Flex{S,C},x)
-promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{C}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay}(::Type{S}, ::Type{C}) = Flex{S,C}
 
 #=
 function convert{S<:Sculpt,C<:Clay,T<:Union{Integer,AbstractFloat}}(::Type{Flex{S,C}}, x::T)
@@ -93,14 +91,16 @@ convert{S<:Sculpt,T<:Union{Integer,AbstractFloat}}(::Type{S}, x::T) = convert(Fl
 promote_rule{S<:Sculpt,C<:Clay,T<:Union{Integer,AbstractFloat}}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
 promote_rule{S<:Sculpt,T<:Union{Integer,AbstractFloat}}(::Type{S}, ::Type{T}) = Flex{S,Float64}
 =#
+
 function convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, x::T)
     fp = convert(C, x)
     Flex(S, fp, fp)
 end
 convert{S<:Sculpt}(::Type{S}, x::S) = x # quiet ambig notice
-convert{S<:Sculpt,T<:Real}(::Type{S}, x::T) = convert(Flex{S,Float64}, convert(Float64,x))
-promote_rule{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
-promote_rule{S<:Sculpt,T<:Real}(::Type{S}, ::Type{T}) = Flex{S,Float64}
+function convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{S}, x::T)
+    fp = convert(Float64, x)
+    Flex(S, fp, fp)
+end
 
 # coverting to a single floating point value
 # unfortunately this is needed to interoperate with other types
