@@ -44,6 +44,14 @@ include("arith/mul.jl")
 include("arith/div.jl")
 include("arith/sqrt.jl")
 
+
+if isdefined(Main, :CRlibm)
+  include("math/moreCRlibm.jl")
+  include("math/withCRlibm.jl")
+else  
+  include("math/approxlibm.jl")
+end
+
 if isdefined(Main, :Distributions)
     include("math/distributions.jl")
 end
