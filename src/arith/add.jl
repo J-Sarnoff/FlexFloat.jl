@@ -1,4 +1,4 @@
-for T in (:ClCl, :OpOp)
+for T in (:CLCL, :OPOP)
    @eval begin
        function (+){C<:Clay}(a::Flex{$T,C}, b::Flex{$T,C})
            lo = (+)(a.lo, b.lo, RoundDown)
