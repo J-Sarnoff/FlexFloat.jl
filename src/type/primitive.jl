@@ -23,13 +23,13 @@ boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(rei
     Closed bounds are reached but Not Exceeded.
     Open bounds are approached but Not Reached.
     
-    close(Flex)   gives the ClCl inclusion of Flex
-    open(Flex) gives the OpOp inclusion of Flex
+    closed(Flex)   gives the ClCl inclusion of Flex
+    opened(Flex) gives the OpOp inclusion of Flex
 =#
 
-close{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
+closed{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
 
-open{C<:Clay}(x::Flex{ClCl,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
-open{C<:Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
-open{C<:Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
-open{C<:Clay}(x::Flex{OpOp,C}) = x
+opened{C<:Clay}(x::Flex{ClCl,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
+opened{C<:Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
+opened{C<:Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
+opened{C<:Clay}(x::Flex{OpOp,C}) = x
