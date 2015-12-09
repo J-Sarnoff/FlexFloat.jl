@@ -1,6 +1,6 @@
    import Main.Distributions:cdf,pdf,quantile
    typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Main.Distributions.Continuous}
-   typealias AbstractMixtureDist Main.Distributions.AbstractMixtureModel{Main.Distributions.Univariate, Main.Distributions.Continuous,C<: Main.Distributions.Distribution}
+   typealias AbstractMixtureDist Main.Distributions.AbstractMixtureModel{Main.Distributions.Univariate, Main.Distributions.Continuous,Main.Distributions.Distribution}
    
    # quash ambiguity
    cdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
