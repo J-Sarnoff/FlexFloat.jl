@@ -34,5 +34,3 @@ uncover{C<:Clay}(x::Flex{ClOp,C}) = OpOp(prevFloat(x.lo), x.hi)
 uncover{C<:Clay}(x::Flex{OpCl,C}) = OpOp(x.lo, nextFloat(x.hi))
 uncover{C<:Clay}(x::Flex{OpOp,C}) = x
 
-widen{S<:Sculpt,C<:Clay}(x::Flex{S,C})  = Flex{S,C}(prevFloat(x.lo), nextFloat(x.hi))
-narrow{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = Flex{S,C}(nextFloat(x.lo), prevFloat(x.hi))
