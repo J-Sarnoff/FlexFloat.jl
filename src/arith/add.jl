@@ -1,7 +1,7 @@
-function (+){C<:Clay}(a::Flex{Cl,C}, b::Flex{Cl,C})
+function (+){C<:Clay}(a::Flex{ClCl,C}, b::Flex{ClCl,C})
     lo = (+)(a.lo, b.lo, RoundDown)
     hi = (+)(a.hi, b.hi, RoundUp)
-    Flex{Cl,C}(lo,hi)
+    Flex{ClCl,C}(lo,hi)
 end
 
 function (+){S<:Sculpt, T<:Sculpt, C<:Clay}(a::Flex{S,C}, b::Flex{T,C})
