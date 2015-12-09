@@ -9,6 +9,7 @@ using .RoundFast
 
 include("type/flexible.jl")
 include("type/primitive.jl")
+include("type/convert.jl")
 include("type/interval.jl")
 
 end # module
