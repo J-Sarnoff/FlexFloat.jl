@@ -15,7 +15,7 @@ abstract Sculpt <: EnhancedFloat
 type ClCl <: Sculpt end
 type ClOp <: Sculpt end
 type OpCl <: Sculpt end
-type ClCl <: Sculpt end
+type OpOp <: Sculpt end
 
 abstract Supple{S,C} <: EnhancedFloat  # EnhancedFloat pulls in Real
          #        C parameterizes the internal arithmetic type at work
