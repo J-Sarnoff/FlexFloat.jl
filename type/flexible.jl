@@ -26,14 +26,42 @@ immutable Flex{S<:Sculpt, C<:Clay} <: Supple{S,C}
     hi::C
 end
 
-@inline function Flex{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C)
+@inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C) = Flex{S,C}(lo,hi)
+@inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, x::C) = Flex{S,C}(x,x)
+@inline function FlexLoHi{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C)
     lo,hi = minmax(lo,hi)
     Flex{S,C}(lo,hi)
 end
-@inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, x::C) = Flex{S,C}(x,x)
 
-ClCl{C<:Clay}(lo::C,hi::C) = Flex(ClCl, lo::C, hi::C)
-ClOp{C<:Clay}(lo::C,hi::C) = Flex(ClOp, lo::C, hi::C)
-OpCl{C<:Clay}(lo::C,hi::C) = Flex(OpCl, lo::C, hi::C)
-OpOp{C<:Clay}(lo::C,hi::C) = Flex(OpOp, lo::C, hi::C)
+ClCl{C<:Clay}(lo::C,hi::C) = Flex(ClCl, lo, hi)
+ClOp{C<:Clay}(lo::C,hi::C) = Flex(ClOp, lo, hi)
+OpCl{C<:Clay}(lo::C,hi::C) = Flex(OpCl, lo, hi)
+OpOp{C<:Clay}(lo::C,hi::C) = Flex(OpOp, lo, hi)
 
+ClCl{C<:Clay}(x::C) = Flex(ClCl, x)
+ClOp{C<:Clay}(x::C) = Flex(ClOp, x)
+OpCl{C<:Clay}(x::C) = Flex(OpCl, x)
+OpOp{C<:Clay}(x::C) = Flex(OpOp, x)
+
+# CC,OC,CO,OO are lo<=hi enforcing versions of ClCl,ClOp,OpCl,OpOp
+CC{C<:Clay}(x::C) = Flex(ClCl, x)
+CO{C<:Clay}(x::C) = Flex(ClOp, x)
+OC{C<:Clay}(x::C) = Flex(OpCl, x)
+OO{C<:Clay}(x::C) = Flex(OpOp, x)
+
+CC{C<:Clay}(lo::C,hi::C) = FlexLoHi(ClCl, lo::C, hi::C)
+function CO{C<:Clay}(lo::C,hi::C) 
+   if lo>hi
+      Flex(OpCl, hi, lo)
+   else
+      Flex(ClOp, hi, lo)
+   end
+end   
+function OC{C<:Clay}(lo::C,hi::C) 
+   if lo>hi
+      Flex(ClOp, hi, lo)
+   else
+      Flex(OpCl, hi, lo)
+   end
+end   
+OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OpOp, lo::C, hi::C)
