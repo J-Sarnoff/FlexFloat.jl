@@ -62,8 +62,8 @@ convert{C<:Clay}(::Type{Flex{OPCL,C}}, x::Flex{OPOP,C}) = opclosed(x)
 
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{CLOP,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
-promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLCL,C}
+promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPCL,C}}) = Flex{CLCL,C}
 promote_rule{C<:Clay}(::Type{Flex{CLOP,C}}, ::Type{Flex{OPOP,C}}) = Flex{CLOP,C}
 promote_rule{C<:Clay}(::Type{Flex{OPCL,C}}, ::Type{Flex{OPOP,C}}) = Flex{OPCL,C}
 #=
