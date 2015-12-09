@@ -1,4 +1,4 @@
-const cdf = Main.Distributions.cdf
+   const cdf = Main.Distributions.cdf
    const pdf = Main.Distributions.pdf
    const quantile = Main.Distributions.quantile
    typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Main.Distributions.Continuous}
@@ -48,6 +48,47 @@ const cdf = Main.Distributions.cdf
        end
    end
 
+         function (pdf){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
+               loIsOpen, hiIsOpen = boundries(S)
+               if loIsOpen
+                   with_rounding(C, RoundDown) do
+                       lo = ($fn)(d, negabs(x.lo))
+                   end
+               else
+                   lo = ($fn)(d, negabs(x.lo))
+               end
+               if hiIsOpen
+                   with_rounding(F, RoundUp) do
+                       hi = ($fn)(d, negabs(x.hi))
+                   end
+               else
+                   hi = ($fn)(d, negabs(x.hi))
+               end
+
+               if lo>hi
+                 loIsOpen, hiIsOpen = hiIsOpen, loIsOpen
+                 # swap x.lo,x.hi inline
+                 if loIsOpen
+                     with_rounding(C, RoundDown) do
+                         lo = ($fn)(d, x.hi)
+                     end
+                 else
+                     lo = ($fn)(d, x.hi)
+                 end
+                 if hiIsOpen
+                     with_rounding(C, RoundUp) do
+                         hi = ($fn)(d, x.lo)
+                     end
+                 else
+                     hi = ($fn)(d, x.lo)
+                 end
+               end
+
+               Flex{ClCl,C}(minmax(lo,hi)...)
+           end
+       end
+       
+#=       
    for (fn) in (:pdf,) # increasing functions (pdf(-x) == pdf(x), pdf(-x) increases)
        @eval begin
            function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
@@ -90,6 +131,7 @@ const cdf = Main.Distributions.cdf
            end
        end
    end
+=#
 
 # the implementation of quantile is not ok with directed rounding on 01-Dec-2015
 #      roundingDn(quantile(Normal(),0.95) > roundingNearest(Normal(),0.95)
