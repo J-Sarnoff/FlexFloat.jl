@@ -1,6 +1,7 @@
 
 Flex{S<:Sculpt}(::Type{S}, lo::Real, hi::Real) = Flex(S, convert(Float64,lo), convert(Float64,hi))
 Flex{S<:Sculpt}(::Type{S}, x::Real) = Flex(S, convert(Float64,x), convert(Float64,x))
+
 function FlexLoHi{S<:Sculpt}(::Type{S}, lo::Real, hi::Real)
     low  = convert(Float64,lo)
     high = convert(Float64,hi)
@@ -8,70 +9,49 @@ function FlexLoHi{S<:Sculpt}(::Type{S}, lo::Real, hi::Real)
     Flex{S,Float64}(lo,hi)
 end    
 
-ClCl(lo::Real,hi::Real) = Flex(ClCl, lo, hi)
-ClOp(lo::Real,hi::Real) = Flex(ClOp, lo, hi)
-OpCl(lo::Real,hi::Real) = Flex(OpCl, lo, hi)
-OpOp(lo::Real,hi::Real) = Flex(OpOp, lo, hi)
+ClCl(lo::Real,hi::Real) = Flex(CLCL, lo, hi)
+ClOp(lo::Real,hi::Real) = Flex(CLOP, lo, hi)
+OpCl(lo::Real,hi::Real) = Flex(OPCL, lo, hi)
+OpOp(lo::Real,hi::Real) = Flex(OPOP, lo, hi)
 
-ClCl(x::Real) = Flex(ClCl, x)
-ClOp(x::Real) = Flex(ClOp, x)
-OpCl(x::Real) = Flex(OpCl, x)
-OpOp(x::Real) = Flex(OpOp, x)
+ClCl(x::Real) = Flex(CLCL, x)
+ClOp(x::Real) = Flex(CLOP, x)
+OpCl(x::Real) = Flex(OPCL, x)
+OpOp(x::Real) = Flex(OPOP, x)
 
 # CC,OC,CO,OO are lo<=hi enforcing versions of ClCl,ClOp,OpCl,OpOp
-CC(x::Real) = Flex(ClCl, x)
-CO(x::Real) = Flex(ClOp, x)
-OC(x::Real) = Flex(OpCl, x)
-OO(x::Real) = Flex(OpOp, x)
+CC(x::Real) = Flex(CLCL, x)
+CO(x::Real) = Flex(CLOP, x)
+OC(x::Real) = Flex(OPCL, x)
+OO(x::Real) = Flex(OPOP, x)
 
-CC(lo::Real,hi::Real) = FlexLoHi(ClCl, lo, hi)
+CC(lo::Real,hi::Real) = FlexLoHi(CLCL, lo, hi)
 function CO(lo::Real,hi::Real) 
    low = convert(Float64, lo)
    high = convert(Float64, hi)
    if low>high
-      Flex(OpCl, high, low)
+      Flex(OPCL, high, low)
    else
-      Flex(ClOp, low, high)
+      Flex(CLOP, low, high)
    end
 end   
 function OC(lo::Real,hi::Real) 
    low = convert(Float64, lo)
    high = convert(Float64, hi)
    if low>high
-      Flex(ClOp, high, low)
+      Flex(CLOP, high, low)
    else
-      Flex(OpCl,low, high)
+      Flex(OPCL,low, high)
    end
 end   
-OO(lo::Real,hi::Real) = FlexLoHi(OpOp, lo, hi)
+OO(lo::Real,hi::Real) = FlexLoHi(OPOP, lo, hi)
 
 
 convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::C) = Flex(S,x,x)
 promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{C}) = Flex{S,C}
 
-convert{S<:Sculpt,C<:Clay,T<:AbstractFloat}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
-convert{S<:Sculpt,C<:Clay,T<:Integer}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
-convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}},x::T) = convert(Flex{S,C}, convert(C,x))
-
-function convert{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}},x::I)
-    fp = convert(Float64,x)
+function convert{S<:Sculpt,C<:Clay,T<:Union{Integer,AbstractFloat}}(::Type{Flex{S,C}}, x::T)
+    fp = convert(C, x)
     Flex(S, fp, fp)
 end
-function convert{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}},x::F)
-    fp = convert(Float64,x)
-    Flex(S, fp, fp)
-end
- 
-promote_rule{S<:Sculpt,C<:Clay,T<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay,T<:Integer}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
-
-promote_rule{S<:Sculpt,C<:Clay,F<:AbstractFloat}(::Type{Flex{S,C}}, ::Type{F}) = Flex{S,promote_type{C,F}}
-promote_rule{S<:Sculpt,C<:Clay,I<:Integer}(::Type{Flex{S,C}}, ::Type{I}) = Flex{S,promote_type{C,I}}
-
-convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::Integer) = Flex(S, convert(Float64,x))
-convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, x::Real) = Flex(S, convert(Float64,x))
-promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{C}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{Integer}) = Flex{S,C}
-promote_rule{S<:Sculpt,C<:Clay}(::Type{Flex{S,C}}, ::Type{Real}) = Flex{S,C}
- 
+promote_rule{S<:Sculpt,C<:Clay,T<:Union{Integer,AbstractFloat}}(::Type{Flex{S,C}}, ::Type{T}) = Flex{S,C}
