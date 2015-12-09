@@ -37,4 +37,11 @@ include("type/interval.jl")
 include("type/compare.jl")
 include("type/io.jl")
 
+include("arith/valueops.jl")
+include("arith/add.jl")
+include("arith/sub.jl")
+include("arith/mul.jl")
+include("arith/div.jl")
+include("arith/sqrt.jl")
+
 end # module
