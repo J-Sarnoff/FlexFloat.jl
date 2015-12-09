@@ -32,8 +32,8 @@ end
 end
 @inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, x::C) = Flex{S,C}(x,x)
 
-ClCl{C<:Clay}(lo::C,hi::C) = Flex(::Type{ClCl}, lo::C, hi::C)
-ClOp{C<:Clay}(lo::C,hi::C) = Flex(::Type{ClOp}, lo::C, hi::C)
-OpCl{C<:Clay}(lo::C,hi::C) = Flex(::Type{OpCl}, lo::C, hi::C)
-OpOp{C<:Clay}(lo::C,hi::C) = Flex(::Type{OpOp}, lo::C, hi::C)
+ClCl{C<:Clay}(lo::C,hi::C) = Flex(ClCl, lo::C, hi::C)
+ClOp{C<:Clay}(lo::C,hi::C) = Flex(ClOp, lo::C, hi::C)
+OpCl{C<:Clay}(lo::C,hi::C) = Flex(OpCl, lo::C, hi::C)
+OpOp{C<:Clay}(lo::C,hi::C) = Flex(OpOp, lo::C, hi::C)
 
