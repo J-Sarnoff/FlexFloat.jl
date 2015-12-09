@@ -61,7 +61,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                     hi = max(hi, ($fn)(x.hi))
                 end
             end
-            Flex{C:CL,C}(lo,hi)
+            Flex{CLCL,C}(lo,hi)
         end
     end
 end
