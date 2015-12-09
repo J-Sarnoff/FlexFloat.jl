@@ -2,7 +2,7 @@ module FlexFloat
 
 import Base: ==, <, <=, -, +, *, /, %, ^,
              convert, promote_rule, promote_type,
-             show, showcompact,
+             show, showcompact, string, parse,
              frexp, ldexp,
              isinteger, isfinite, isreal, isinf, isnan,
              sign, signbit, copysign, flipsign, abs,
@@ -34,5 +34,6 @@ include("type/flexible.jl")
 include("type/primitive.jl")
 include("type/convert.jl")
 include("type/interval.jl")
+include("type/io.jl")
 
 end # module
