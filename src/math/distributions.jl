@@ -1,11 +1,11 @@
-   cdf = Main.Distributions.cdf
-   pdf = Main.Distributions.pdf
-   quantile = Main.Distributions.quantile
+   cdfDist = Main.Distributions.cdf
+   pdfDist = Main.Distributions.pdf
+   quantileDist = Main.Distributions.quantile
    typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Main.Distributions.Continuous}
 
    @inline negabs(x::Clay) = -abs(x)
 
-   for (fn) in (:cdf,) # increasing functions
+   for (fn) in (:cdfDist,) # increasing functions
        @eval begin
            function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
                loIsOpen, hiIsOpen = boundries(S)
@@ -48,7 +48,7 @@
        end
    end
 
-   for (fn) in (:pdf,) # increasing functions (pdf(-x) == pdf(x), pdf(-x) increases)
+   for (fn) in (:pdfDist,) # increasing functions (pdf(-x) == pdf(x), pdf(-x) increases)
        @eval begin
            function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
                loIsOpen, hiIsOpen = boundries(S)
@@ -95,7 +95,7 @@
 #      roundingDn(quantile(Normal(),0.95) > roundingNearest(Normal(),0.95)
 #  and roundingUp(quantile(Normal(),0.95) > roundingNearest(Normal(),0.95)
 
- for (fn) in (:quantile,) # increasing functions
+ for (fn) in (:quantileDist,) # increasing functions
        @eval begin
            function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
                loIsOpen, hiIsOpen = boundries(S)
