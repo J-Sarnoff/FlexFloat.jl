@@ -1,6 +1,7 @@
 module RoundFast
 
 import Base:(+),(-),(*),(/),sqrt
+export square
 
 include("../../module/AdjacentFloat/AdjacentFloat.jl")
 using .AdjacentFloat
