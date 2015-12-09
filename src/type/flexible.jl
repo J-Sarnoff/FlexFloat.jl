@@ -12,10 +12,10 @@ abstract EnhancedFloat <: Real
 =#
 abstract Sculpt <: EnhancedFloat
 
-type ClCl <: Sculpt end
-type ClOp <: Sculpt end
-type OpCl <: Sculpt end
-type OpOp <: Sculpt end
+type CLCL <: Sculpt end
+type CLOP <: Sculpt end
+type OPCL <: Sculpt end
+type OPOP <: Sculpt end
 
 abstract Supple{S,C} <: EnhancedFloat  # EnhancedFloat pulls in Real
          #        C parameterizes the internal arithmetic type at work
@@ -33,36 +33,36 @@ end
     Flex{S,C}(lo,hi)
 end
 
-ClCl{C<:Clay}(lo::C,hi::C) = Flex(ClCl, lo, hi)
-ClOp{C<:Clay}(lo::C,hi::C) = Flex(ClOp, lo, hi)
-OpCl{C<:Clay}(lo::C,hi::C) = Flex(OpCl, lo, hi)
-OpOp{C<:Clay}(lo::C,hi::C) = Flex(OpOp, lo, hi)
+ClCl{C<:Clay}(lo::C,hi::C) = Flex(CLCL, lo, hi)
+ClOp{C<:Clay}(lo::C,hi::C) = Flex(CLOP, lo, hi)
+OpCl{C<:Clay}(lo::C,hi::C) = Flex(OPCL, lo, hi)
+OpOp{C<:Clay}(lo::C,hi::C) = Flex(OPOP, lo, hi)
 
-ClCl{C<:Clay}(x::C) = Flex(ClCl, x)
-ClOp{C<:Clay}(x::C) = Flex(ClOp, x)
-OpCl{C<:Clay}(x::C) = Flex(OpCl, x)
-OpOp{C<:Clay}(x::C) = Flex(OpOp, x)
+ClCl{C<:Clay}(x::C) = Flex(CLCL, x)
+ClOp{C<:Clay}(x::C) = Flex(CLOP, x)
+OpCl{C<:Clay}(x::C) = Flex(OPCL, x)
+OpOp{C<:Clay}(x::C) = Flex(OPOP, x)
 
 # CC,OC,CO,OO are lo<=hi enforcing versions of ClCl,ClOp,OpCl,OpOp
-CC{C<:Clay}(x::C) = Flex(ClCl, x)
-CO{C<:Clay}(x::C) = Flex(ClOp, x)
-OC{C<:Clay}(x::C) = Flex(OpCl, x)
-OO{C<:Clay}(x::C) = Flex(OpOp, x)
+CC{C<:Clay}(x::C) = Flex(CLCL, x)
+CO{C<:Clay}(x::C) = Flex(CLOP, x)
+OC{C<:Clay}(x::C) = Flex(OPCL, x)
+OO{C<:Clay}(x::C) = Flex(OPOP, x)
 
-CC{C<:Clay}(lo::C,hi::C) = FlexLoHi(ClCl, lo, hi)
+CC{C<:Clay}(lo::C,hi::C) = FlexLoHi(CLCL, lo, hi)
 function CO{C<:Clay}(lo::C,hi::C) 
    if lo>hi
-      Flex(OpCl, hi, lo)
+      Flex(OPCL, hi, lo)
    else
-      Flex(ClOp, hi, lo)
+      Flex(CLOP, hi, lo)
    end
 end   
 function OC{C<:Clay}(lo::C,hi::C) 
    if lo>hi
-      Flex(ClOp, hi, lo)
+      Flex(CLOP, hi, lo)
    else
-      Flex(OpCl, hi, lo)
+      Flex(OPCL, hi, lo)
    end
 end   
-OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OpOp, lo, hi)
+OO{C<:Clay}(lo::C,hi::C) = FlexLoHi(OPOP, lo, hi)
 
