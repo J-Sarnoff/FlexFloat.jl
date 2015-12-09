@@ -1,11 +1,12 @@
 
   These routines return +/-Inf when given +/-Inf.
-  
+  And step twice given values of very small magnitude (see paper).
+
   That differs from nextfloat(-Inf) == -realmax(), prevfloat(Inf) == realmax()
+  
   (prevfloat(Inf)==Inf makes more sense to me, and likely is more helpful).
   
-  And steps twice when given values of very small magnitude (see paper).
-
+  
   The alternative implementation, converting to [U]Int and adding/subtracting 1,
   returns NaN when given +/-Inf -- and checking for Inf adds branching. 
   
