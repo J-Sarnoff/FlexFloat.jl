@@ -21,7 +21,7 @@ export Flex, ClCl, ClOp, OpCl, OpOp, CC, CO, OC, OO,
        Sculpt, Clay, 
        widened, narrowed, opened, closed,
        boundries, clay, sculpt, value,
-       glb, lub, sup, inf,
+       glb, lub, supremum, infimum,
        dia, rad, mid, mig, mag, dev, abs, dist
 
 # provide these modular services
