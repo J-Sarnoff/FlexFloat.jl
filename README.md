@@ -42,11 +42,37 @@ julia> a=OpCl(1.5, 2); b=2; a+b, a-b, a*b, a/b
 
 ```julia
 
+# elementary functions of FlexFloat values
+
 julia> using FlexFloat
+julia> exp(OpOp(1.0))
+⟨2.7182818284590446, 2.7182818284590455⟩ # diameter: 8.88e-16
+
+# optionally using CRlibm for more accuracy
+
+julia> using CRlibm      # must preceed using FlexFloat
+julia> using FlexFloat
+julia> exp(OpOp(1.0))
+⟨2.718281828459045, 2.7182818284590455⟩ # diameter: 4.44e-16
+
+# polynomial evaluation at FlexFloat values
+
 julia> using Polynomials
+julia> using FlexFloat
 julia> p = Poly([4.0,8,1,-5,-1,1]);
 julia> polyval(p, ClOp(2.5, 2.5+eps(2.5))
 ⟨10.718749999999991, 10.718750000000039⟫
+
+# cdf, pdf, quantile at FlexFloat values
+# for continuous univariate distributions
+
+julia> using Distributions  # must preceed using FlexFloat
+julia> using FlexFloat
+julia> ND=normal();
+julia> pdf(ND, ClCl(0.999,0.9995))
+⟨0.24209170987131956, 0.24221269516298546⟩
+julia> pdf(ND, OpOp(0.999,0.9995))
+⟨0.24209170987131953, 0.24221269516298546⟩
 
 
 
