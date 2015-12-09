@@ -97,7 +97,7 @@ function convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{Flex{S,C}}, x::T)
     Flex(S, fp, fp)
 end
 convert{S<:Sculpt}(::Type{S}, x::S) = x # quiet ambig notice
-function convert{S<:Sculpt,C<:Clay,T<:Real}(::Type{S}, x::T)
+function convert{S<:Sculpt,,T<:Real}(::Type{S}, x::T)
     fp = convert(Float64, x)
     Flex(S, fp, fp)
 end
