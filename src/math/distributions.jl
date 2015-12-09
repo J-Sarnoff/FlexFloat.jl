@@ -1,6 +1,6 @@
-   const cdf = Main.Distributions.cdf
-   const pdf = Main.Distributions.pdf
-   const quantile = Main.Distributions.quantile
+   cdf = Main.Distributions.cdf
+   pdf = Main.Distributions.pdf
+   quantile = Main.Distributions.quantile
    typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Main.Distributions.Continuous}
 
    @inline negabs(x::Clay) = -abs(x)
