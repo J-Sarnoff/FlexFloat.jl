@@ -103,6 +103,7 @@ end
    functions y=f(x) such that f(x+dx) > f(x) for dx>0 and f(x) defined for domainMin..x..Inf
 =#
 
+#= in arith
 for (fn, domainMin) in ((:sqrt, 0.0), )
     @eval begin
         function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
@@ -133,6 +134,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
         end
     end
 end
+=#
 
 for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
     @eval begin
