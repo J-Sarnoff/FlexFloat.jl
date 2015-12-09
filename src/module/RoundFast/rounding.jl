@@ -18,12 +18,12 @@ function (/){T<:AbstractFloat, R<:RoundingMode}(a::T, b::T, rounding::R)
     eftRound(hi, lo, rounding)
 end
 
-function (square){T<:AbstractFloat, R<:RoundingMode}(a::T, b::T, rounding::R)
-    hi,lo = eftSquare(a,b)
+function (square){T<:AbstractFloat, R<:RoundingMode}(a::T, rounding::R)
+    hi,lo = eftSquare(a)
     eftRound(hi, lo, rounding)
 end
 
-function (sqrt){T<:AbstractFloat, R<:RoundingMode}(a::T, b::T, rounding::R)
-    hi,lo = eftSqrtApprox(a,b)
+function (sqrt){T<:AbstractFloat, R<:RoundingMode}(a::T, rounding::R)
+    hi,lo = eftSqrtApprox(a)
     eftRound(hi, lo, rounding)
 end
