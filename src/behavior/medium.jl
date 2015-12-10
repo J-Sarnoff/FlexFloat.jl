@@ -62,6 +62,8 @@ end
 @inline isolate_exponent{T<:Unsigned}(x::T)   = (x & exponent_mask(T))
 @inline get_exponent{T<:Unsigned}(x::T)       = (isolate_exponent(x) >> significand_bits(T))
 @inline put_exponent{T<:Unsigned}(x::T, e::T) = (isolate_exponent(e << significand_bits(T)) | clear_exponent(x))
-@inline get_exponent{T<:AbstractFloat}(x::T)  = get_exponent(reinterpret(Unsigned,x))
+
+@inline get_exponent(x::Float)  = get_exponent(reinterpret(Unsigned,x))
+@inline put_exponent(x::Float, e::Unsigned)= put_exponent(reinterpret(Unsigned,x),e)
 
 
