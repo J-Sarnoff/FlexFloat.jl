@@ -1,7 +1,8 @@
 
-sculpt{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = S
-clay{S<:Sculpt, C<:Clay}(x::Flex{S,C})   = C
-values{S<:Sculpt, C<:Clay}(x::Flex{S,C})  = (x.lo,x.hi)
+sculpt{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = S
+qualia{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = Q
+clay{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})   = C
+values{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})  = (x.lo,x.hi)
 
 # each boundry is closed(false) or Open (true)
 # get boundries from Sculpt
@@ -10,7 +11,7 @@ boundries(::Type{CLOP}) = (false,true)
 boundries(::Type{OPCL}) = (true,false)
 boundries(::Type{OPOP}) = (true,true)
 # get Sculpt from boundries
-boundries{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = boundries(S)
+boundries{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = boundries(S)
 # get Sculpt from boundries
 const Boundries = [CLCL, OPCL, CLOP, OPOP]
 boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(reinterpret(Int8,hi)<<1) ]
@@ -29,19 +30,19 @@ boundries{B<:Bool}(lo::B,hi::B) = Boundries[ one(Int8)+reinterpret(Int8,lo)+(rei
     opened(Flex) gives the OpOp inclusion of Flex
 =#
 
-closed{S<:Sculpt,C<:Clay}(x::Flex{S,C}) = ClCl(x.lo, x.hi)
+closed{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = ClCl(x.lo, x.hi)
 
-opened{C<:Clay}(x::Flex{CLCL,C}) = OpOp(prevFloat(x.lo), nextFloat(x.hi))
-opened{C<:Clay}(x::Flex{CLOP,C}) = OpOp(prevFloat(x.lo), x.hi)
-opened{C<:Clay}(x::Flex{OPCL,C}) = OpOp(x.lo, nextFloat(x.hi))
-opened{C<:Clay}(x::Flex{OPOP,C}) = x
+opened{Q<:Qualia,C<:Clay}(x::Flex{CLCL,Q,C}) = OpOp{Q,C}(prevFloat(x.lo), nextFloat(x.hi))
+opened{Q<:Qualia,C<:Clay}(x::Flex{CLOP,Q,C}) = OpOp(prevFloat(x.lo), x.hi)
+opened{Q<:Qualia,C<:Clay}(x::Flex{OPCL,Q,C}) = OpOp(x.lo, nextFloat(x.hi))
+opened{Q<:Qualia,C<:Clay}(x::Flex{OPOP,Q,C}) = x
 
-clopened{C<:Clay}(x::Flex{CLCL,C}) = ClOp(x.lo, nextFloat(x.hi))
-clopened{C<:Clay}(x::Flex{CLOP,C}) = x
-clopened{C<:Clay}(x::Flex{OPCL,C}) = ClOp(x.lo, nextFloat(x.hi))
-clopened{C<:Clay}(x::Flex{OPOP,C}) = ClOp(x.lo, x.hi)
+clopened{Q<:Qualia,C<:Clay}(x::Flex{CLCL,Q,C}) = ClOp(x.lo, nextFloat(x.hi))
+clopened{Q<:Qualia,C<:Clay}(x::Flex{CLOP,Q,C}) = x
+clopened{Q<:Qualia,C<:Clay}(x::Flex{OPCL,Q,C}) = ClOp(x.lo, nextFloat(x.hi))
+clopened{Q<:Qualia,C<:Clay}(x::Flex{OPOP,Q,C}) = ClOp(x.lo, x.hi)
 
-opclosed{C<:Clay}(x::Flex{CLCL,C}) = OpCl(prevFloat(x.lo), x.hi)
-opclosed{C<:Clay}(x::Flex{CLOP,C}) = OpCl(prevFloat(x.lo), x.hi)
-opclosed{C<:Clay}(x::Flex{OPCL,C}) = x
-opclosed{C<:Clay}(x::Flex{OPOP,C}) = OpCl(x.lo, x.hi)
+opclosed{Q<:Qualia,C<:Clay}(x::Flex{CLCL,Q,C}) = OpCl(prevFloat(x.lo), x.hi)
+opclosed{Q<:Qualia,C<:Clay}(x::Flex{CLOP,Q,C}) = OpCl(prevFloat(x.lo), x.hi)
+opclosed{Q<:Qualia,C<:Clay}(x::Flex{OPCL,Q,C}) = x
+opclosed{Q<:Qualia,C<:Clay}(x::Flex{OPOP,Q,C}) = OpCl(x.lo, x.hi)
