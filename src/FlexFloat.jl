@@ -35,6 +35,8 @@ using .Reinterpret
 
 typealias Float AbstractFloat
 
+include("type/customize.jl"
+
 include("type/flexible.jl")
 include("type/primitive.jl")
 include("type/convert.jl")
