@@ -25,17 +25,16 @@ function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
     postfix = postfixes(boundaries(S))
     delimLo, delimHi = delimiters(boundries(S)...)
-    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, Postfixes(boudelimHi)
-    #s = string(delimLo, s, delimHi)
+    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, postfix)
     print(io, s)
 end
 
 function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    postfix = postfixes(boundaries(S))
     delimLo, delimHi = delimiters(boundries(S)...)
     lo = @sprintf("%0.5g", x.lo)
     hi = @sprintf("%0.5g", x.hi)
-    s = (x.lo != x.hi) ? string(lo, Flexably, hi) : string(delimLo, lo, delimHi)
-    #s = string(delimLo, s, delimHi)
+    s = (x.lo != x.hi) ? string(lo, Flexably, hi) : string(lo, postfix)
     print(io, s)
 end
