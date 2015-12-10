@@ -14,7 +14,7 @@ function flipsign{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Real)
 end
 
 frexp{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}) = (frexp(a.lo),frexp(a.hi))
-ldexp{S<:Sculpt,Q<:Qualia,C<:Clay,I<:Union{Int32,Int64}}(::Type{S},a::Tuple{Tuple{C,I},Tuple{C,I}}) = 
+ldexp{S<:Sculpt,Q<:Qualia,C<:Clay,I<:Union{Int32,Int64}}(::Type{Flex{S,Q,C}},a::Tuple{Tuple{C,I},Tuple{C,I}}) = 
    (Flex{S,Q,C})(ldexp(a[1][1],a[1][2]),ldexp(a[2][1],a[2][2]))
 ldexp{C<:Clay,I<:Union{Int32,Int64}}(a::Tuple{Tuple{C,I},Tuple{C,I}}) = 
    (ClCl)(ldexp(a[1][1],a[1][2]),ldexp(a[2][1],a[2][2]))
@@ -34,8 +34,7 @@ Special values:
  - `x` is infinite: `den` should be zero and `num` should have the same sign as `x`
  - `x` is not a number: `num` and `den` should both be zero
 =#
-
-#decompose{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = decompose( mid(x) )
+decompose{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = decompose(mostRepresentativeValue(x))
 
 isnan{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (isnan(x.lo) | isnan(x.hi))
 isinf{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (isinf(x.lo) | isinf(x.hi))
