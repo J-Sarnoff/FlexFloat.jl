@@ -8,7 +8,7 @@
 | compare  | magnitude comparisons |
 | interval | basic ops on intervals |
 | io | output |
-| foryouruse | qualia you may qualify (see below) |
+| foryouruse | qualia to qualify (see below) |
 
       In addition to being open or closed at each boundry,
       Intervals are qualified as EXACT or INEXACT.
