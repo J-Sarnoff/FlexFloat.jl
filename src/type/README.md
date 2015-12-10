@@ -8,3 +8,4 @@
 | compare  | magnitude comparisons |
 | interval | basic ops on intervals |
 | io | output |
+| foryouruse | process qualia however you like |
