@@ -5,8 +5,10 @@
 
 typealias Float AbstractFloat
 
+@inline iscommon{F<:Float}(fp::F) (isfinite(fp) && !(fp==zero(F)))
+
 function project{F<:Float}(fp::F)
-    if isfinite(fp)
+    if iscommon(fp)
        if fp <= AsTiny(F)
            TinyProjected(F)
        elseif fp >= AsHuge(F)
@@ -14,7 +16,7 @@ function project{F<:Float}(fp::F)
        else
            pushout(fp)
        end
-    else  # ±Inf or NaN
+    else  # ±0.0 ±Inf or NaN
        fp
     end
 end    
@@ -25,7 +27,7 @@ end
 end
 
 function reflect{F<:Float}(fp::F)
-    if isfinite(fp)
+    if iscommon(fp)
        if fp <= TinyProjected(F)
            Tiny(F)
        elseif fp >= HugeProjected(F)
@@ -33,7 +35,7 @@ function reflect{F<:Float}(fp::F)
        else
            pullback(fp)
        end
-    else # ±Inf or NaN
+    else # ±0.0 or ±Inf or NaN
         fp
     end
 end
