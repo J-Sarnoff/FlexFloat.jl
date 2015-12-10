@@ -56,7 +56,11 @@ Tiny(::Type{UInt64})   = 0x2010000000000000
 Huge(::Type{UInt64})   = 0x5fd0000000000001
 
 # above, after projection
-TinyProjected(::Type{Float64}) = 
-TinyProjected(::Type{UInt64})  = 
-HugeProjected(::Type{Float64}) = 
-HugeProjected(::Type{UInt64})  = 
+AsTinyProjected(::Type{Float64}) = 1.7800590868057605e-307
+AsHugeProjected(::Type{Float64}) = 0.12500000000000006
+  TinyProjected(::Type{Float64}) = 
+  HugeProjected(::Type{Float64}) = 
+AsTinyProjected(::Type{UInt64})  = 0x003ffffffffffffd
+AsHugeProjected(::Type{UInt64})  = 0x3fc0000000000002
+  TinyProjected(::Type{UInt64})  = 
+  HugeProjected(::Type{UInt64})  = 
