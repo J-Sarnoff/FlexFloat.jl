@@ -36,13 +36,7 @@ This should not be used when a task requires the availability of subnormal numbe
      ±Tiny are considered to hold all nonzero values of magnitude
       less than the available float of least magnitude.
 
-        If gradual.jl is included, this would be less than the
-        subnormal value of least magnitude, which excludes all
-        Float64|32 representable values. So, it is set equal to
-        the subnormal value of least magnitude, making it safe
-        for external operations to ignore it as a special case.
-        Otherwise, central.jl is included and this is set to be
-        much greater than the subnormal of largest magnitude.
+     This is set to be much greater than the largest subnormal.
 
      Testing for these seminumerical values is supported using
      isinf, ishuge, istiny, also isnan. Use them, not others.
