@@ -5,6 +5,11 @@ const Flexably = "⍿"
 const OpenAbove = "⫯"
 const OpenBelow = "⫰"
 
+#                     ClCl      ClOp     OpCl      OpOp
+const Postfixes = [ Simply, OpenAbove, OpenBelow, Flexably ]];
+@inline postfixes(loIsOpen::Bool, hiIsOpen::Bool) =
+      Postfixes[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
+
 # select characters corresponding to boundries as specified (lo,hi)
 #   true for Open, false for Closed
 #                     ClCl      ClOp        OpCl      OpOp
@@ -18,8 +23,9 @@ const Delimiters = [ ("⟨","⟩"), ("⟨","⟫"), ("⟪","⟩"), ("⟪","⟫") 
 
 function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    postfix = postfixes(boundaries(S))
     delimLo, delimHi = delimiters(boundries(S)...)
-    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(delimLo, x.lo, delimHi)
+    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, Postfixes(boudelimHi)
     #s = string(delimLo, s, delimHi)
     print(io, s)
 end
