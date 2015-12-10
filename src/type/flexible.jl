@@ -70,8 +70,8 @@ for (Fn,fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
             lo,hi = minmax(lo,hi)
             Flex{$S,INEXACT,C}(lo,hi)
         end
-        ($Fn)(fp::Real) = Flex{$S,EXACT,Float64}(covert(Float64,fp))
-        ($fn)(fp::Real) = Flex{$S,INEXACT,Float64}(covert(Float64,fp))
+        ($Fn)(fp::Real) = Flex{$S,EXACT,Float64}(convert(Float64,fp))
+        ($fn)(fp::Real) = Flex{$S,INEXACT,Float64}(convert(Float64,fp))
         function ($Fn)(lo::Real,hi::Real)
             low = convert(Float64, lo)
             hig = convert(Float64, hi)
