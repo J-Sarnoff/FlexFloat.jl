@@ -20,7 +20,7 @@ The inexact interval Inexact(1,2) indicates any value within the Real range from
 
 #### Values may exist in either of two states: situated and enhanced.
 
-*This capability exists transparently -- apps run just as well without stateful values.*
+*This capability exists transparently -- apps that do not need this ability it may ignore it entirely free from consequence and other bother.*
 
 
 
