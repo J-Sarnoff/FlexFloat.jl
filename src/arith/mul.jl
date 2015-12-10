@@ -62,6 +62,6 @@ end
 (*){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::C) = (*)(a, Flex{S,Q,C}(b))
 (*){S<:Sculpt,Q<:Qualia,C<:Clay}(a::C, b::Flex{S,Q,C}) = (*)(Flex{S,Q,C}(a), b)
 
-(*){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Bool, b::Flex{S,C}) = a ? b : Flex{S,Q,C}(0.0) # quash ambig notice
-(*){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (*)(a, Flex{S,Q,C}(convert(C,b)))
-(*){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::T, b::Flex{S,C}) = (*)(Flex{S,Q,C}(convert(C,a)), b)
+(*){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Bool, b::Flex{S,Q,C}) = a ? b : Flex{S,Q,C}(0.0) # quash ambig notice
+(*){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::Flex{S,Q,C}, b::T) = (*)(a, Flex{S,Q,C}(convert(C,b)))
+(*){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::T, b::Flex{S,Q,C}) = (*)(Flex{S,Q,C}(convert(C,a)), b)
