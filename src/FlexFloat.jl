@@ -1,6 +1,6 @@
 module FlexFloat
 
-=#             
+
 import Base: ==, <, <=, -, +, *, /, %, ^,
              convert, promote_rule, promote_type, r_promote, 
              show, showcompact, string, parse,
