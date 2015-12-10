@@ -1,9 +1,9 @@
 for T in (:CLCL, :CLOP, :OPCL, :OPOP)
    @eval begin
-       function (sqrt){C<:Clay}(a::Flex{$T,C})
+       function (sqrt){Q<:Qualia,C<:Clay}(a::Flex{$T,Q,C})
            lo = (sqrt)(a.lo, RoundDown)
            hi = (sqrt)(a.hi, RoundUp)
-           Flex{$T,C}(lo,hi)
+           Flex{$T,Q,C}(lo,hi)
        end
    end       
 end
