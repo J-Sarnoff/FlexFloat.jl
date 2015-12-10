@@ -28,16 +28,6 @@ situated{T<:AbstractFloat}(x::T) = !tst_ebit(x)  #      is this situated?
 @inline isTiny{T<:AbstractFloat}(x::T) = (x <= AsTiny(T))
 @inline isHuge{T<:AbstractFloat}(x::T) = (x <= AsHuge(T))
 
-@inline function checkTinyAndHuge{T<:AbstractFloat}(x::T)
-    if isTiny(x)
-        Tiny(T)
-    elseif isHuge(x)
-        Huge(T)
-    else
-        zero(T)
-    end
-end
-
 
 # huge/tiny gathers all finite values larger/smaller (or equal) itself
 # huge, tiny before projective transform
