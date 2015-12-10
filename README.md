@@ -18,7 +18,8 @@ An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for OpOp.<
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this indicates any value within the Real range that extends from prevfloat(3) to nextfloat(3) without including either.</br>
 The inexact interval Inexact(1,2) indicates any value within the Real range from prevfloat(1) to nextfloat(2), exclusively.
 
-###### Each value-instance persists in one of two stable states until a change of state is desired
+#### Values are obtained and persist so situated until enhanced
+
 
 
 
