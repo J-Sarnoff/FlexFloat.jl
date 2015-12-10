@@ -2,11 +2,15 @@
    The following function wraps a call that ascertains the floating point value
    deemed to be most representative of the valuespan an interval signifies.
    
-   If you prefer, you may provide a functional substitute.
+   If you prefer, you may provide a functional substitute by changing
+   the function called inside of both mostRepresentativeValue()s.
 =#
 
 function mostRepresentativeValue{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})
     lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+    domainExtendedLogarithmicMean(lo,hi)
+end
+function mostRepresentativeValue{C<:Clay}(lo::C, hi::C)
     domainExtendedLogarithmicMean(lo,hi)
 end
 
