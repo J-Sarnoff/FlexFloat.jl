@@ -1,4 +1,6 @@
-#=  the Type realization underlying all FlexFloat computation  =#
+#=   FlexFloat Typeology    =#
+
+abstract Art
 
 
 # C is Clay  , the base or substructural concrete type 
@@ -6,8 +8,6 @@
 # S is Sculpt, the art unfolding, qualia as dynamism guiding dispatch
 #
 abstract EnhancedFloat{C, S, Q} <: Real
-
-typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be added
 
 #=
    These Sculpts are as intervals,
@@ -28,7 +28,8 @@ typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be ad
          span [nextfloat(bounding value) for open lower bounds].
 =#
 
-abstract Sculpt
+abstract Sculpt <: Art
+
                          #   explicatively        traditionally
                          #
 abstract CLCL <: Sculpt  #    [.......]             [.....]
@@ -42,18 +43,27 @@ abstract CLOP <: Sculpt  #    [......(              [.....)
       If both boundries are exact, the interval is exact.
       If either boundry is inexact, the interval is inexact.
 =#
-abstract Qualia
+abstract Qualia  <: Art
 
 abstract EXACT   <: Qualia
 abstract INEXACT <: Qualia
 
 abstract Supple{S<:Sculpt, Q<:Qualia}
 
+#= Clay is extensible with Union{} =#    typealias Clay AbstractFloat
 
-immutable Flex{S<:Sculpt, C<:Clay} <: Real
+immutable Flex{S, Q, C<:Clay} <: Supple{S, Q}
     lo::C
     hi::C
 end
+
+
+convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::C, hi::C) = Flex{S,Q,C}(lo,hi)
+convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, fp::C) = Flex{S,Q,C}(fp,fp)
+convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::C, hi::Real) = Flex{S,Q,C}(lo,convert(C,hi))
+convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::Real, hi::C) = Flex{S,Q,C}(convert(C,lo.c),hi)
+convert{S<:Sculpt, Q<:Qualia}(::Type{S},::Type{Q}, lo::Real, hi::Real) = Flex{S,Q,C}(convert(Float64,lo.c),convert(Float64,hi))
+
 
 @inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C) = Flex{S,C}(lo,hi)
 @inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, x::C) = Flex{S,C}(x,x)
