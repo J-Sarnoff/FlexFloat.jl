@@ -13,9 +13,9 @@ function flipsign{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Real)
     lo <= hi ? (S)(lo,hi) : (negate(S))(hi,lo)
 end
 
-frexp{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,C}) = (frexp(a.lo),frexp(a.hi))
+frexp{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}) = (frexp(a.lo),frexp(a.hi))
 ldexp{S<:Sculpt,Q<:Qualia,C<:Clay,I<:Union{Int32,Int64}}(::Type{S},a::Tuple{Tuple{C,I},Tuple{C,I}}) = 
-   (S)(ldexp(a[1][1],a[1][2]),ldexp(a[2][1],a[2][2]))
+   (Flex{S,Q,C})(ldexp(a[1][1],a[1][2]),ldexp(a[2][1],a[2][2]))
 ldexp{C<:Clay,I<:Union{Int32,Int64}}(a::Tuple{Tuple{C,I},Tuple{C,I}}) = 
    (ClCl)(ldexp(a[1][1],a[1][2]),ldexp(a[2][1],a[2][2]))
    
@@ -41,5 +41,5 @@ isnan{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (isnan(x.lo) | isnan(x.hi
 isinf{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (isinf(x.lo) | isinf(x.hi))
 isfinite{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (isfinite(x.lo) & isfinite(x.hi))
 issubnormal{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (issubnormal(x.lo) | issubnormal(x.hi))
-
+isinteger{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = (x.lo==x.hi) && (isinteger(x.lo) & isinteger(x.hi))
 
