@@ -17,7 +17,7 @@ for (fn) in (:acsc, :asec, :acot,
              :asinh, :acosh, :atanh, :acsch, :asech, :acoth,
              :erf, :erfinv)
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
             lo, hi = values(x)
             lo = ($fn)(lo)
@@ -28,7 +28,7 @@ for (fn) in (:acsc, :asec, :acot,
             lo = prevFloat(lo)
             hi = nextFloat(hi)
             
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -40,7 +40,7 @@ end
 
 for (fn) in (:exp, :expm1, :atan, :sinh, :tanh)
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             loIsOpen, hiIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
             lo, hi = values(x)
@@ -54,7 +54,7 @@ for (fn) in (:exp, :expm1, :atan, :sinh, :tanh)
             else
                 hi = ($fn)(x.hi, RoundNearest)
             end
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -65,7 +65,7 @@ end
 
 for (fn) in (:sin, :cos, :tan, :csc, :sec, :cot, :cosh)
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             loIsOpen, hiIsOpen = boundries(S)
             lo, hi = values(x)
             if loIsOpen
@@ -94,7 +94,7 @@ for (fn) in (:sin, :cos, :tan, :csc, :sec, :cot, :cosh)
                 end
             end
 
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -106,7 +106,7 @@ end
 #= in arith
 for (fn, domainMin) in ((:sqrt, 0.0), )
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if x.lo < ($domainMin)
                 throw(ErrorException("DomainError: $($fn) expected x.lo>=($($domainMin)), got $(x)."))
             end
@@ -130,7 +130,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                     hi = ($fn)(hi)
                 end     
             end
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -138,7 +138,7 @@ end
 
 for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if x.lo < ($domainMin)
                 throw(ErrorException("DomainError: $($fn) expected x.lo>=($($domainMin)), got $(x)."))
             end
@@ -156,7 +156,7 @@ for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
                 hi = ($fn)(hi, RoundNearest)
             end
             
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -168,7 +168,7 @@ end
 
 for (fn, domainMin, domainMax) in ((:asin, -1.0, 1.0), (:atanh, -1.0, 1.0), (:erfinv, -1.0, 1.0))
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if (x.lo < ($domainMin)) | (x.hi > ($domainMax))
                 throw(ErrorException("DomainError: $($fn) expected x.lo,x.hi within [($($domainMin),$($domainMax))], got $(x)."))
             end
@@ -186,7 +186,7 @@ for (fn, domainMin, domainMax) in ((:asin, -1.0, 1.0), (:atanh, -1.0, 1.0), (:er
                 hi = ($fn)(hi, RoundNearest)
             end
 
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -197,7 +197,7 @@ end
 
 for (fn, domainMin, domainMax) in ((:acos, -1.0, 1.0),)
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if (x.lo < ($domainMin)) | (x.hi > ($domainMax))
                 throw(ErrorException("DomainError: $($fn) expected x.lo,x.hi within [($($domainMin),$($domainMax))], got $(x)."))
             end
@@ -216,7 +216,7 @@ for (fn, domainMin, domainMax) in ((:acos, -1.0, 1.0),)
                 hi = ($fn)(hi, RoundNearest)
             end
 
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -228,7 +228,7 @@ end
 #=
 for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (:acoth, -1.0, 1.0))
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C})
             if (($domainLoMax) < x.lo < ($domainHiMin)) | (($domainLoMax) < x.lo < ($domainHiMin))
                 throw(ErrorException("DomainError: $($fn) expected x.lo,x.hi outside [($($domainLoMax),$($domainHiMin))], got $(x)."))
             end
@@ -260,7 +260,7 @@ for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (
                     hi = ($fn)(hi, RoundNearest)
                 end
             end
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
