@@ -1,3 +1,62 @@
+convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{S,Q,Float64}}, x::Flex{S,Q,C}) = Flex{S,Q,Float64}(convert(Float64,x.lo),convert(Float64,x.hi))
+
+convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{CLCL,Q,C}}, x::Flex{S,Q,C}) = Flex{CLCL,Q,C}(closed(x)...)
+convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{CLOP,Q,C}}, x::Flex{S,Q,C}) = Flex{CLCL,Q,C}(clopened(x)...)
+convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{OPCL,Q,C}}, x::Flex{S,Q,C}) = Flex{CLCL,Q,C}(opclosed(x)...)
+convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{OPOP,Q,C}}, x::Flex{S,Q,C}) = Flex{CLCL,Q,C}(opened(x)...)
+
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{S,Q,C}}, lo::Real, hi::Real)
+   low = convert(C, lo)
+   hig = convert(C, hi)
+   low,hig = minmax(low,hig)
+   Flex{S,Q,C}(low,hig)
+end
+
+@inline function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Tuple{R,R}}, x::Flex{S,Q,C})
+   lo,hi = values(closed(x))
+   lo = convert(R,lo)
+   hi = convert(R,hi)
+   (lo,hi)
+end
+
+convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Vector{R}}, x::Flex{S,Q,C}) = [convert(Tuple{R,R}, x)...]
+
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
+   lo,hi = convert(Tuple{R,R}, x)
+   if lo == hi
+      lo
+   else  
+       if lo > 0.0
+           #=
+               using the logarithmic mean to condense the spanned interval into a representative floating point value
+           =#
+           (hi - lo) / (log(hi) - log(lo))
+        else # determine the logarithmic mean indirectly
+           if signbit(hi) == signbit(lo)
+                abs(hi - lo) / (log(abs(hi)) - log(abs(lo)))  
+           else
+              lo, hi = (abs(hi) / log(abs(lo)), (abs(lo) / log(abs(hi)))
+              if abs(lo) <= abs(hi)
+                 copysign( abs(lo-hi), lo)
+              else
+                 copysign( abs(lo-hi), hi)
+              end
+            end
+        end    
+    end
+end
+
+           end
+        end    
+   end
+end   
+   
+end
+
+
+# see foryouruse.jl to access conversion logic when qualia differ
+
+
 
 #=
 convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::C, hi::C) = Flex{S,Q,C}(lo,hi)
@@ -25,7 +84,7 @@ convert{C<:Clay}(lo::Real, hi::C) = Flex{CLCL,EXACT,C}(convert(C,lo.c),hi)
 convert(lo::Real, hi::Real) = Flex{CLCL,EXACT,C}(convert(Float64,lo.c),convert(Float64,hi))
 =#
 
-
+#=
 Flex{S<:Sculpt}(::Type{S}, lo::Real, hi::Real) = Flex(S, convert(Float64,lo), convert(Float64,hi))
 Flex{S<:Sculpt}(::Type{S}, x::Real) = Flex(S, convert(Float64,x), convert(Float64,x))
 
@@ -34,7 +93,8 @@ function FlexLoHi{S<:Sculpt}(::Type{S}, lo::Real, hi::Real)
     high = convert(Float64,hi)
     low,high = minmax(lo,hi)
     Flex{S,Float64}(lo,hi)
-end    
+end
+=#
 #=
 convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{CLOP,C}) = closed(x)
 convert{C<:Clay}(::Type{Flex{CLCL,C}}, x::Flex{OPCL,C}) = closed(x)
