@@ -26,8 +26,8 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
    if lo == hi
       lo
    else  
-       domainExtendedLogarithmicMean(lo,hi)
-    end
+       mostRepresentativeValue(lo,hi)
+   end
 end
 
 
