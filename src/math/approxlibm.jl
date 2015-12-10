@@ -22,7 +22,7 @@ for (fn) in (:exp, :expm1, :log, :log1p,
              :asinh, :acosh, :atanh, :acsch, :asech, :acoth,
              :erf, :erfinv)
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
             lo, hi = values(x)
             lo = ($fn)(lo)
@@ -33,7 +33,7 @@ for (fn) in (:exp, :expm1, :log, :log1p,
             lo = prevFloat(lo)
             hi = nextFloat(hi)
             
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
@@ -42,7 +42,7 @@ end
 #= in arith
 for (fn, domainMin) in ((:sqrt, 0.0), )
     @eval begin
-        function ($fn){S<:Sculpt,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if x.lo < ($domainMin)
                 throw(ErrorException("DomainError: $($fn) expected x.lo>=($($domainMin)), got $(x)."))
             end
@@ -61,7 +61,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                     hi = max(hi, ($fn)(x.hi))
                 end
             end
-            Flex{CLCL,C}(lo,hi)
+            Flex{CLCL,Q,C}(lo,hi)
         end
     end
 end
