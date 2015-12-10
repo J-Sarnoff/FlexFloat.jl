@@ -1,6 +1,7 @@
 # FlexFloat.jl
 ####
-#####These values stretch, preserving accuracy over extended mathematical computation.
+
+#### These are values that stretch preserve accuracy.
 
 The underlying representation is an interval with bounds that may be closed (exact) or open (inexact).  An exact bound takes the floating point value given at that boundry to be a precisely accurate quantity.  Two examples of exact quantities are counts and monetary balances. An inexact bound takes the floating point value given at the lower [higher] boundry to be largest [smallest] possible quantity to be included in the bounding value's span.  An inexact bound bound extendes away from the center of the interval, almost reaching the next lower [higher] floating point value.  Inexact bounds cover a real span that is not fully representable with machine floats -- and from that fact tend to follow results with relatively tight bounds.
 
@@ -17,7 +18,7 @@ An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for OpOp.<
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this indicates any value within the Real range that extends from prevfloat(3) to nextfloat(3) without including either.</br>
 The inexact interval Inexact(1,2) indicates any value within the Real range from prevfloat(1) to nextfloat(2), exclusively.
 
-######These values allow situated bistable statefulness (**which can be ignored**)
+###### Each value-instance persists in one of two stable states until a change of state is desired
 
 
 
