@@ -56,19 +56,12 @@ for m in (:sign_mask, :exponent_mask, :exponent_filt, :exponent_bias, :significa
     @eval ($m){T<:Unsigned}(::Type{T}) = ($m)(reinterpret(AbstractFloat,T))
 end
 
-# these work with raw, biased exponent values
+# these serve utilizing raw, biased exponent values
 
 @inline clear_exponent{T<:Unsigned}(x::T)     = (x & exponent_filt(T))
 @inline isolate_exponent{T<:Unsigned}(x::T)   = (x & exponent_mask(T))
 @inline get_exponent{T<:Unsigned}(x::T)       = (isolate_exponent(x) >> significand_bits(T))
 @inline put_exponent{T<:Unsigned}(x::T, e::T) = (isolate_exponent(e << significand_bits(T)) | clear_exponent(x))
-
 @inline get_exponent{T<:AbstractFloat}(x::T)  = get_exponent(reinterpret(Unsigned,x))
 
 
-
-
- enhance{T<:AbstractFloat}(x::T) =  set_ebit(x)  # this is now  enhanced!
- situate{T<:AbstractFloat}(x::T) =  clr_ebit(x)  # this is now  situated!
-enhanced{T<:AbstractFloat}(x::T) =  tst_ebit(x)  #      is this enhanced?
-situated{T<:AbstractFloat}(x::T) = !tst_ebit(x)  #      is this situated?
