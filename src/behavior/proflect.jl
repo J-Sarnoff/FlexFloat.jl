@@ -27,6 +27,7 @@ end
 end
 
 function reflect{F<:Float}(fp::F)
+    fp = clr_ebit(fp)
     if iscommon(fp)
        if fp <= TinyProjected(F)
            Tiny(F)
