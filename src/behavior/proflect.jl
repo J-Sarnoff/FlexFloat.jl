@@ -5,7 +5,7 @@
 
 typealias Float AbstractFloat
 
-@inline iscommon{F<:Float}(fp::F) (isfinite(fp) && !(fp==zero(F)))
+@inline iscommon{F<:Float}(fp::F) = (isfinite(fp) && !(fp==zero(F)))
 
 function project{F<:Float}(fp::F)
     if iscommon(fp)
