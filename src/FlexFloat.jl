@@ -32,6 +32,8 @@ using .RoundFast
 include("module/Reinterpret/Reinterpret.jl")
 using .Reinterpret
 
+typealias Float AbstractFloat
+
 include("type/flexible.jl")
 include("type/primitive.jl")
 include("type/convert.jl")
