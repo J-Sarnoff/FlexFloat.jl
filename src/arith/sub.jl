@@ -1,18 +1,18 @@
-@inline function (-){S<:Sculpt,C<:Clay}(a::Flex{S,C})
+@inline function (-){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C})
    Flex{negate(S), C}(-a.hi, -a.lo)
 end
 
 for T in (:CLCL, :OPOP)
    @eval begin
-       function (-){C<:Clay}(a::Flex{$T,C}, b::Flex{$T,C})
+       function (-){Q<:Qualia,C<:Clay}(a::Flex{$T,Q,C}, b::Flex{$T,Q,C})
            lo = (-)(a.lo, b.hi, RoundDown)
            hi = (-)(a.hi, b.lo, RoundUp)
-           Flex{$T,C}(lo,hi)
+           Flex{$T,Q,C}(lo,hi)
        end
    end       
 end
 
-function (-){S<:Sculpt, T<:Sculpt, C<:Clay}(a::Flex{S,C}, b::Flex{T,C})
+function (-){S<:Sculpt, T<:Sculpt,Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{T,Q,C})
     aLoIsOpen, aHiIsOpen = boundries(S)
     bLoIsOpen, bHiIsOpen = boundries(T)
     sculpting = boundries(aLoIsOpen|bLoIsOpen, aHiIsOpen|bHiIsOpen)
@@ -20,11 +20,11 @@ function (-){S<:Sculpt, T<:Sculpt, C<:Clay}(a::Flex{S,C}, b::Flex{T,C})
     lo = (-)(a.lo, b.hi, RoundDown)
     hi = (-)(a.hi, b.lo, RoundUp)
        
-    Flex{sculpting,C}(lo,hi)
+    Flex{sculpting,Q,C}(lo,hi)
 end
 
-(-){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (-)(a, Flex{S,C}(b))
-(-){S<:Sculpt,C<:Clay}(a::C, b::Flex{S,C}) = (-)(Flex{S,C}(a), b)
+(-){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::C) = (-)(a, Flex{S,Q,C}(b))
+(-){S<:Sculpt,Q<:Qualia,C<:Clay}(a::C, b::Flex{S,Q,C}) = (-)(Flex{S,Q,C}(a), b)
 
-(-){S<:Sculpt,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (-)(a, Flex{S,C}(convert(C,b)))
-(-){S<:Sculpt,C<:Clay,T<:Real}(a::T, b::Flex{S,C}) = (-)(Flex{S,C}(convert(C,a)), b)
+(-){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::Flex{S,Q,C}, b::T) = (-)(a, Flex{S,Q,C}(convert(C,b)))
+(-){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::T, b::Flex{S,Q,C}) = (-)(Flex{S,Q,C}(convert(C,a)), b)
