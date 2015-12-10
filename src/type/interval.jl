@@ -40,12 +40,12 @@ end
 # from "Standardized notation in interval analysis", R. B. Kearfott, et. al.
 # width(diameter), radius, midpoint, mignitude, magnitude, deviation, absolutevalue
 
-dia{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)
-rad{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)/2
-mid{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.lo + x.hi)/2
-mig{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) =
+dia{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (x.hi - x.lo)
+rad{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (x.hi - x.lo)/2
+mid{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (x.lo + x.hi)/2
+mig{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) =
    (signbit(x.lo)==signbit(x.hi)) ? min(abs(x.lo), abs(x.hi)) : 0
-mag{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = max(abs(x.lo), abs(x.hi))
-dev{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
-abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = Flex{S,C}(mig(x),mag(x))
-dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}, y::Flex{S,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
+mag{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = max(abs(x.lo), abs(x.hi))
+dev{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
+abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = Flex{S,C}(mig(x),mag(x))
+dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
