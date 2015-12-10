@@ -1,5 +1,4 @@
 const Approx = "~"
-const Intraval = "⧞"
 const Flexable = "⍿"
 const OpenAbove = "⫯"
 const OpenBelow = "⫰"
