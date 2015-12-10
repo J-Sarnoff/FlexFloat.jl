@@ -17,8 +17,9 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              asinh,acosh,atanh,acsch,asech,acoth,
              gamma,lgamma,erf,erfinv
 
-export Flex, ClCl, ClOp, OpCl, OpOp, CC, CO, OC, OO,
-       Sculpt, Clay, 
+export ClCl, ClOp, OpCl, OpOp,
+       clcl, clop, opcl, opop,
+       Flex, Sculpt, Clay, 
        widened, narrowed, opened, closed,
        boundries, clay, sculpt, value,
        glb, lub, supremum, infimum,
