@@ -58,29 +58,6 @@ immutable Flex{S, Q, C<:Clay} <: Supple{S, Q}
 end
 
 
-convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::C, hi::C) = Flex{S,Q,C}(lo,hi)
-convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, fp::C) = Flex{S,Q,C}(fp,fp)
-convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::C, hi::Real) = Flex{S,Q,C}(lo,convert(C,hi))
-convert{S<:Sculpt, Q<:Qualia, C<:Clay}(::Type{S},::Type{Q}, lo::Real, hi::C) = Flex{S,Q,C}(convert(C,lo.c),hi)
-convert{S<:Sculpt, Q<:Qualia}(::Type{S},::Type{Q}, lo::Real, hi::Real) = Flex{S,Q,C}(convert(Float64,lo.c),convert(Float64,hi))
-
-convert{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C) = Flex{S,EXACT,C}(lo,hi)
-convert{S<:Sculpt, C<:Clay}(::Type{S}, fp::C) = Flex{S,EXACT,C}(fp,fp)
-convert{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::Real) = Flex{S,EXACT,C}(lo,convert(C,hi))
-convert{S<:Sculpt, C<:Clay}(::Type{S}, lo::Real, hi::C) = Flex{S,EXACT,C}(convert(C,lo.c),hi)
-convert{S<:Sculpt}(::Type{S}, lo::Real, hi::Real) = Flex{S,EXACT,C}(convert(Float64,lo.c),convert(Float64,hi))
-
-convert{Q<:Qualia, C<:Clay}(::Type{Q}, lo::C, hi::C) = Flex{CLCL,Q,C}(lo,hi)
-convert{Q<:Qualia, C<:Clay}(::Type{Q}, fp::C) = Flex{CLCL,Q,C}(fp,fp)
-convert{Q<:Qualia, C<:Clay}(::Type{Q}, lo::C, hi::Real) = Flex{CLCL,Q,C}(lo,convert(C,hi))
-convert{Q<:Qualia, C<:Clay}(::Type{Q}, lo::Real, hi::C) = Flex{CLCL,Q,C}(convert(C,lo.c),hi)
-convert{Q<:Qualia}(::Type{Q}, lo::Real, hi::Real) = Flex{CLCL,Q,C}(convert(Float64,lo.c),convert(Float64,hi))
-
-convert{C<:Clay}(lo::C, hi::C) = Flex{CLCL,EXACT,C}(lo,hi)
-convert{C<:Clay}(fp::C) = Flex{CLCL,EXACT,C}(fp,fp)
-convert{C<:Clay}(lo::C, hi::Real) = Flex{CLCL,EXACT,C}(lo,convert(C,hi))
-convert{C<:Clay}(lo::Real, hi::C) = Flex{CLCL,EXACT,C}(convert(C,lo.c),hi)
-convert(lo::Real, hi::Real) = Flex{CLCL,EXACT,C}(convert(Float64,lo.c),convert(Float64,hi))
 
 @inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, lo::C, hi::C) = Flex{S,C}(lo,hi)
 @inline Flex{S<:Sculpt, C<:Clay}(::Type{S}, x::C) = Flex{S,C}(x,x)
