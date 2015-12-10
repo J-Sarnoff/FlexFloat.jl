@@ -41,6 +41,10 @@ include("type/interval.jl")
 include("type/compare.jl")
 include("type/io.jl")
 
+include("behavior/medium.jl")
+include("behavior/protenaxis.jl")
+include("behavior/proflect.jl")
+
 include("arith/valueops.jl")
 include("arith/add.jl")
 include("arith/sub.jl")
