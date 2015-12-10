@@ -21,7 +21,7 @@ end
 
 @inline function pushout{F<:Float}(fp::F)
    stationedExponent = get_exponent(fp) - Bias(F)
-   put_exponent(fp, stationedExponent)
+   reinterpret(F,put_exponent(fp, stationedExponent))
 end
 
 function reflect{F<:Float}(fp::F)
@@ -40,6 +40,6 @@ end
 
 @inline function pullback{F<:Float}(fp::F)
    stationaryExponent = get_exponent(fp) + Bias(F)
-   put_exponent(fp, stationaryExponent)
+   reinterpret(F,put_exponent(fp, stationaryExponent))
 end
 
