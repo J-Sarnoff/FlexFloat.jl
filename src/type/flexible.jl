@@ -7,7 +7,6 @@
 #
 abstract EnhancedFloat{C, S, Q} <: Real
 
-
 typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be added
 
 #=
@@ -27,18 +26,15 @@ typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be ad
          close to its bounding value.  Open bounds are given logic
          to support participation with the coinciding real value
          span [nextfloat(bounding value) for open lower bounds].
+=#
 
 abstract Sculpt
-#=
-type CLCL <: Sculpt end # [.......]
-type OPOP <: Sculpt end #  ).....(
-type OPCL <: Sculpt end #  )......]
-type CLOP <: Sculpt end # [......(
-=#
-abstract CLCL <: Sculpt  # [.......]
-abstract OPOP <: Sculpt  #  ).....(
-abstract OPCL <: Sculpt  #  )......]
-abstract CLOP <: Sculpt  # [......(
+                         #   explicatively        traditionally
+                         #
+abstract CLCL <: Sculpt  #    [.......]             [.....]
+abstract OPOP <: Sculpt  #     ).....(              (.....)
+abstract OPCL <: Sculpt  #     )......]             (.....]
+abstract CLOP <: Sculpt  #    [......(              [.....)
 
 #=
    These Qualia are as bistable states,
