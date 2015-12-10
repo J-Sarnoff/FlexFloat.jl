@@ -16,3 +16,11 @@ situated{T<:AbstractFloat}(x::T) = !tst_ebit(x)  #      is this situated?
  enhance!{T<:AbstractFloat}(x::T) =  set_ebit(x)  # this is now  enhanced!
  situate!{T<:AbstractFloat}(x::T) =  clr_ebit(x)  # this is now  situated!
  
+#=
+    Tiny if exponent(Float64) <= -509                         Huge if exponent(Float64) >= 510
+    TinyAsValue == ldexp(0.5,-509)        <reciprocals>       HugeAsValue == ldexp(0.5,511)
+
+                            1.19e-153     central range    8.38e+152
+      ldexp(prevfloat(prevfloat(1.0)), -508) ...0.0... ldexp(nextfloat(0.5),509)
+                                          <reciprocals>
+=#
