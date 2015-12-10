@@ -8,6 +8,8 @@
 | compare  | magnitude comparisons |
 | interval | basic ops on intervals |
 | io | output |
+|    |        |
+| customize  | swappable fns are wrapped here |
 | foryouruse | qualia to qualify (see below) |
 
       In addition to being open or closed at each boundry,
