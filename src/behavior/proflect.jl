@@ -5,12 +5,12 @@
 
 typealias Float AbstractFloat
 
-function project(fp::Float)
+function project{F<:Float}(fp::F)
     if isfinite(fp)
-       if fp <= AsTiny
-           TinyProjected
-       elseif fp >= AsHuge
-           HugeProjected
+       if fp <= AsTiny(F)
+           TinyProjected(F)
+       elseif fp >= AsHuge(F)
+           HugeProjected(F)
        else
            pushout(fp)
        end
@@ -24,12 +24,12 @@ end
    put_exponent(fp, stationedExponent)
 end
 
-function reflect(fp::Float)
+function reflect{F<:Float}(fp::F)
     if isfinite(fp)
-       if fp <= TinyProjected
-           Tiny
-       elseif fp >= HugeProjected
-           Huge
+       if fp <= TinyProjected(F)
+           Tiny(F)
+       elseif fp >= HugeProjected(F)
+           Huge(F)
        else
            pullback(fp)
        end
