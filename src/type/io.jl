@@ -6,7 +6,7 @@ const OpenAbove = "⫯"
 const OpenBelow = "⫰"
 
 #                     ClCl      ClOp     OpCl      OpOp
-const Postfixes = [ Simply, OpenAbove, OpenBelow, Flexably ]];
+const Postfixes = [ Simply, OpenAbove, OpenBelow, Flexably ];
 @inline postfixes(loIsOpen::Bool, hiIsOpen::Bool) =
       Postfixes[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
