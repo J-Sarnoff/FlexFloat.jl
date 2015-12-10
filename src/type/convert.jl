@@ -12,7 +12,7 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{S,Q,C}}, lo::Real, hi:
    Flex{S,Q,C}(low,hig)
 end
 
-@inline function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Tuple{R,R}}, x::Flex{S,Q,C})
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Array{C,1}}, x::Flex{S,Q,C})
    if Q==CLCL
        lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
    end 
@@ -20,8 +20,6 @@ end
    hi = convert(R,hi)
    (lo,hi)
 end
-
-convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Vector{R}}, x::Flex{S,Q,C}) = [convert(Tuple{R,R}, x)...]
 
 function domainExtendedLogarithmicMean{R<:Real}(x::R,y::R)
        lo,hi = minmax(x,y)
@@ -46,7 +44,11 @@ function domainExtendedLogarithmicMean{R<:Real}(x::R,y::R)
 end
 
 function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
-   lo,hi = convert(Tuple{R,R}, x)
+   if Q==CLCL
+       lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+   end 
+   lo = convert(R,lo)
+   hi = convert(R,hi)
    if lo == hi
       lo
    else  
