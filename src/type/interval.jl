@@ -13,26 +13,26 @@ end
 function glb{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = min(x.lo,y.lo)
     hi = min(x.hi,y.hi)
-    (S)(minmax(lo,hi)...)
+    Flex{S,C}(minmax(lo,hi)...)
 end
 
 function lub{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = max(x.lo,y.lo)
     hi = max(x.hi,y.hi)
-    (S)(minmax(lo,hi)...)
+    Flex{S,C}(minmax(lo,hi)...)
 end
 
 # supremum (join, interval [convex] hull) and an infimum (meet, intersection).
 function supremum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = min(x.lo,y.lo)
     hi = max(x.hi,y.hi)
-    (S)(minmax(lo,hi)...)
+    Flex{S,C}(minmax(lo,hi)...)
 end
 
 function infimum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
     lo = max(x.lo,y.lo)
     hi = min(x.hi,y.hi)
-    (S)(minmax(lo,hi)...)
+    Flex{S,C}(minmax(lo,hi)...)
 end
 
 
