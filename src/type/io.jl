@@ -29,7 +29,7 @@ function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     delimLo, delimHi = delimiters(boundries(S)...)
     lo = @sprintf("%0.5g", x.lo)
     hi = @sprintf("%0.5g", x.hi)
-    s = (x.lo != x.hi) ? string(lo, Flexibly, hi) : lo
+    s = (x.lo != x.hi) ? string(lo, Flexably, hi) : lo
     s = string(delimLo, s, delimHi)
     print(io, s)
 end
