@@ -21,7 +21,7 @@ function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     delimLo, delimHi = delimiters(boundries(S)...)
     # s = (x.lo != x.hi) ? string(x.lo, ", ", x.hi) : string(x.lo)
     s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo)
-    s = string(prefix, delimLo, s, delimHi)
+    s = string(delimLo, s, delimHi)
     print(io, s)
 end
 
@@ -32,6 +32,6 @@ function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     hi = @sprintf("%6.5g", x.hi)
     # s = (x.lo != x.hi) ? lo : string(lo, ", ", hi)
     s = (x.lo != x.hi) ? lo : string(lo, FlexGlyph, hi)
-    s = string(prefix, delimLo, s, delimHi)
+    s = string(delimLo, s, delimHi)
     print(io, s)
 end
