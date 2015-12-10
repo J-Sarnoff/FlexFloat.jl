@@ -15,37 +15,44 @@ typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be ad
       bounded about lo and hi, covering amidst lo and hi.
       
    Each boundry either is Closed(Cl) or it is Open(Op).
-      Closed boundries include the bounding value.
-      Open boundries 'really' approach the bounding value, 
-         coming arbitrarily close, treating the separation
-         as if it were much less 1 ulp .. this is embodied
-         in the computational logic, treated much as open
-         bounded Real interval.
-=#
-abstract Sculpt
+   
+      A Closed boundry does include its bounding value.
+        A Closed boundry is considered complete at its bounding value.
+      An Open boundry does not include its bounding value.
+        An Open boundry is considered complete before its bounding value
+        (above with an open lower bound, below with an open upper bound).
+       
+      Open upper bounds are treated as inclusively reaching from
+         prevfloat(bounding value) outward, approching arbitrarily
+         close to its bounding value.  Open bounds are given logic
+         to support participation with the coinciding real value
+         span [nextfloat(bounding value) for open lower bounds].
 
+abstract Sculpt
+#=
 type CLCL <: Sculpt end # [.......]
 type OPOP <: Sculpt end #  ).....(
 type OPCL <: Sculpt end #  )......]
 type CLOP <: Sculpt end # [......(
+=#
+abstract CLCL <: Sculpt  # [.......]
+abstract OPOP <: Sculpt  #  ).....(
+abstract OPCL <: Sculpt  #  )......]
+abstract CLOP <: Sculpt  # [......(
 
 #=
-          These Sculpts are as intervals,
-          bounded about lo and hi, covering amidst lo and hi.
-            Each boundry either is Closed(Cl) or it is Open(Op).
-            e.g. ClOp(lo,hi) has a closed lower bound, and a open upper bound.
+   These Qualia are as bistable states,
+      each boundry either is exact or it is inexact.
+      If both boundries are exact, the interval is exact.
+      If either boundry is inexact, the interval is inexact.
 =#
-abstract Sculpt
+abstract Qualia
 
-type CLCL <: Sculpt end
-type CLOP <: Sculpt end
-type OPCL <: Sculpt end
-type OPOP <: Sculpt end
+abstract EXACT   <: Qualia
+abstract INEXACT <: Qualia
 
+abstract Supple{S<:Sculpt, Q<:Qualia}
 
-abstract Supple{S,C} <: EnhancedFloat  # EnhancedFloat pulls in Real
-         #        C parameterizes the internal arithmetic type at work
-         #      S paramterizes boundedness as OpOp, ClOp, OpCl or ClCl
 
 immutable Flex{S<:Sculpt, C<:Clay} <: Real
     lo::C
