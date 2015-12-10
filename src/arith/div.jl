@@ -9,7 +9,7 @@
 =#
 
 
-function (/){S<:Sculpt,W<:Sculpt,C<:Clay}(a::Flex{S,C}, b::Flex{W,C})
+function (/){S<:Sculpt,W<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{W,Q,C})
     z = zero(C)
     if ((b.lo < z) & (b.hi > z))
       divisorContainsZero(a,b)
@@ -42,7 +42,7 @@ for (fn,loa,lob,hia,hib) in [ (:divLteLte, :(a.hi), :(b.lo), :(a.lo), :(b.hi)),
                               (:divZerGte, :(a.lo), :(b.lo), :(a.hi), :(b.lo)),
                             ]
   @eval begin
-    function ($fn){S<:Sculpt,W<:Sculpt,C<:Clay}(a::Flex{S,C}, b::Flex{W,C})
+    function ($fn){S<:Sculpt,W<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{W,Q,C})
         aLoIsOpen, aHiIsOpen = boundries(S)
         bLoIsOpen, bHiIsOpen = boundries(W)
         cType = boundries( (aLoIsOpen|bLoIsOpen), (aHiIsOpen|bHiIsOpen) )
@@ -55,12 +55,12 @@ for (fn,loa,lob,hia,hib) in [ (:divLteLte, :(a.hi), :(b.lo), :(a.lo), :(b.hi)),
   end
 end
 
-function divisorContainsZero{S<:Sculpt,W<:Sculpt,C<:Clay}(a::Flex{S,C}, b::Flex{W,C})
+function divisorContainsZero{S<:Sculpt,W<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{W,Q,C})
     throw(ErrorException("Divisor contains zero: $(a) / $(b)"))
 end
 
-(/){S<:Sculpt,C<:Clay}(a::Flex{S,C}, b::C) = (/)(a, Flex{S,C}(b))
-(/){S<:Sculpt,C<:Clay}(a::C, b::Flex{S,C}) = (/)(Flex{S,C}(a), b)
+(/){S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::C) = (/)(a, Flex{S,Q,C}(b))
+(/){S<:Sculpt,Q<:Qualia,C<:Clay}(a::C, b::Flex{S,Q,C}) = (/)(Flex{S,Q,C}(a), b)
 
-(/){S<:Sculpt,C<:Clay,T<:Real}(a::Flex{S,C}, b::T) = (/)(a, Flex{S,C}(convert(C,b)))
-(/){S<:Sculpt,C<:Clay,T<:Real}(a::T, b::Flex{S,C}) = (/)(Flex{S,C}(convert(C,a)), b)
+(/){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::Flex{S,Q,C}, b::T) = (/)(a, Flex{S,Q,C}(convert(C,b)))
+(/){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::T, b::Flex{S,Q,C}) = (/)(Flex{S,Q,C}(convert(C,a)), b)
