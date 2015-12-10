@@ -3,16 +3,16 @@ typealias Dist Main.Distributions.Distribution{Main.Distributions.Univariate,Mai
 
 
 # quash ambiguity
-cdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
-pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.AbstractMixtureModel{Main.Distributions.Univariate, Main.Distributions.Continuous}, x::FlexFloat.Flex{S,C})= ErrorException("Not Implemented")
-pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorException("Not Implemented")
+cdf{S<:Sculpt, Q<:Qualia, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,Q,C}) = ErrorException("Not Implemented")
+pdf{S<:Sculpt, Q<:Qualia, C<:Clay}(d::Main.Distributions.AbstractMixtureModel{Main.Distributions.Univariate, Main.Distributions.Continuous}, x::FlexFloat.Flex{S,Q,C})= ErrorException("Not Implemented")
+pdf{S<:Sculpt, Q<:Qualia, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,Q,C}) = ErrorException("Not Implemented")
  
 
 @inline negabs(x::Clay) = -abs(x)
 
    for (fn) in (:cdf,) # increasing functions
        @eval begin
-           function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
+           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,QC})
                loIsOpen, hiIsOpen = boundries(S)
                if loIsOpen
                    with_rounding(C, RoundDown) do
@@ -48,14 +48,14 @@ pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorEx
                  end
                end
 
-               Flex{CLCL,C}(minmax(lo,hi)...)
+               Flex{CLCL,Q,C}(minmax(lo,hi)...)
            end
        end
    end
 
    for (fn) in (:pdf,) # increasing functions (pdf(-x) == pdf(x), pdf(-x) increases)
        @eval begin
-           function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
+           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,Q,C})
                loIsOpen, hiIsOpen = boundries(S)
                if loIsOpen
                    with_rounding(C, RoundDown) do
@@ -91,7 +91,7 @@ pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorEx
                  end
                end
 
-               Flex{CLCL,C}(minmax(lo,hi)...)
+               Flex{CLCL,Q,C}(minmax(lo,hi)...)
            end
        end
    end
@@ -102,7 +102,7 @@ pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorEx
 
  for (fn) in (:quantile,) # increasing functions
        @eval begin
-           function ($fn){S<:Sculpt, C<:Clay}(d::Dist, x::Flex{S,C})
+           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,C})
                loIsOpen, hiIsOpen = boundries(S)
                if loIsOpen
                    loNearest = ($fn)(d, x.lo)
@@ -140,7 +140,7 @@ pdf{S<:Sculpt, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,C}) = ErrorEx
                  end
                end
 
-               Flex{CLCL,C}(minmax(lo,hi)...)
+               Flex{CLCL,Q,C}(minmax(lo,hi)...)
            end
        end
    end
