@@ -23,7 +23,7 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              asinh,acosh,atanh,acsch,asech,acoth,
              gamma,lgamma,erf,erfinv,
              start, next, done,
-             iv, reducedim_init
+             reducedim_init  # could not import Base.iv
 
 export ClCl, ClOp, OpCl, OpOp,
        clcl, clop, opcl, opop,
