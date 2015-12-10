@@ -12,8 +12,8 @@
 (>=){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,Q,C}) = ((a.lo >= b.lo) & (a.hi >= b.hi))
 (< ){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,Q,C}) = (!(a >= b))
 (> ){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,Q,C}) = (!(a <= b))
-(isless){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{T,R,C}) = (a < b)
-(isequal){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{T,R,C}) = (a == b)
+(isless){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a < b)
+(isequal){S<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a == b)
 
 #=
     if a,b are of differing Sculpt and one boundry value from each of a and b are equal 
