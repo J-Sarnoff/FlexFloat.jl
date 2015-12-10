@@ -31,3 +31,4 @@
 (isless){S<:Sculpt, T<:Sculpt, Q<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{T,Q,C}) = (a < b)
 
 
+# see foryouruse.jl to access comparison logic when qualia differ
