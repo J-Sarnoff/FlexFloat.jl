@@ -18,7 +18,7 @@ const Delimiters = [ ("▪","▪"), ("▪","▫"), ("▫","▪"), ("▫","▫") 
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
 # when lo==hi, to indicate EXACT
-const Surrounds = [("⬥","⬥"), ("⬥","⬦"), ("⬦","⬥"), ("⬦","⬦")];
+const Surrounds = [("⬩","⬩"), ("⬩","⬦"), ("⬦","⬩"),("⬩","⬦")];
 @inline surrounds(loIsOpen::Bool, hiIsOpen::Bool) =
       Surrounds[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
