@@ -25,6 +25,20 @@ situated{T<:AbstractFloat}(x::T) = !tst_ebit(x)  #      is this situated?
                                           <reciprocals>
 =#
 
+@inline isTiny{T<:AbstractFloat}(x::T) = (x <= AsTiny(T))
+@inline isHuge{T<:AbstractFloat}(x::T) = (x <= AsHuge(T))
+
+@inline function checkTinyAndHuge{T<:AbstractFloat}(x::T)
+    if isTiny(x)
+        Tiny(T)
+    elseif isHuge(x)
+        Huge(T)
+    else
+        zero(T)
+    end
+end
+
+
 # huge/tiny gathers all finite values larger/smaller (or equal) itself
 # huge, tiny before projective transform
 Bias(::Type{Float64})   = 511                     # exponent_bias(Float64) >> 1
@@ -35,9 +49,12 @@ Tiny(::Type{Float64})   = 2.983336292480083e-154  # collective value representin
 Huge(::Type{Float64})   = 3.35195198248565e+153   # collective value representing all largest  normal magnitudes
                                                   # 1/Tiny == Huge, 1/Huge == Tiny
 # above, reinterpreted before projection
-Bias(::Type{UInt64})  = 
-Tiny(::Type{UInt64})  = 
-Huge(::Type{UInt64})  = 
+Bias(::Type{UInt64})   = 0x00000000000001ff
+AsTiny(::Type{UInt64}) = 0x202ffffffffffffd
+AsHuge(::Type{UInt64}) = 0x5fb0000000000002
+Tiny(::Type{UInt64})   = 0x2010000000000000
+Huge(::Type{UInt64})   = 0x5fd0000000000001
+
 # above, after projection
 TinyProjected(::Type{Float64}) = 
 TinyProjected(::Type{UInt64})  = 
