@@ -1,21 +1,29 @@
 module FlexFloat
 
+=#             
 import Base: ==, <, <=, -, +, *, /, %, ^,
-             convert, promote_rule, promote_type,
+             convert, promote_rule, promote_type, r_promote, 
              show, showcompact, string, parse,
              frexp, ldexp,
              isinteger, isfinite, isreal, isinf, isnan,
              sign, signbit, copysign, flipsign, abs,
-             sizeof, reinterpret, # decompose does not import, use Base.decompose
+             decompose,
+             sizeof, reinterpret,
              typemin, typemax, realmin, realmax,
              zero, one,  eps,
-             isequal,isless, (!=),(>=),(>),
+             sizeof, reinterpret,
+             trunc, round, floor, ceil,
+             fld, rem, mod, mod1, rem1, fld1, 
+             isequal,isless, (!=),(>=),(>),(<=),(<),(==),
+             min, max, minmax,
              sqrt,exp,expm1,log,log1p,
              sin,cos,tan,csc,sec,cot,
              asin,acos,atan,acsc,asec,acot,
              sinh,cosh,tanh,csch,sech,coth,
              asinh,acosh,atanh,acsch,asech,acoth,
-             gamma,lgamma,erf,erfinv
+             gamma,lgamma,erf,erfinv,
+             start, next, done,
+             iv, reducedim_init
 
 export ClCl, ClOp, OpCl, OpOp,
        clcl, clop, opcl, opop,
