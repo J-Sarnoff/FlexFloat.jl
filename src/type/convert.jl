@@ -35,7 +35,8 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
            if signbit(hi) == signbit(lo)
                 abs(hi - lo) / (log(abs(hi)) - log(abs(lo)))  
            else
-              lo, hi = (abs(hi) / log(abs(lo)), (abs(lo) / log(abs(hi)))
+              lo = abs(hi) / log(abs(lo))
+              hi = abs(lo) / log(abs(hi))
               if abs(lo) <= abs(hi)
                  copysign( abs(lo-hi), lo)
               else
