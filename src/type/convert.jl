@@ -13,7 +13,9 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{S,Q,C}}, lo::Real, hi:
 end
 
 @inline function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Tuple{R,R}}, x::Flex{S,Q,C})
-   lo,hi = values(closed(x))
+   if Q==CLCL
+       lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+   end 
    lo = convert(R,lo)
    hi = convert(R,hi)
    (lo,hi)
@@ -21,11 +23,8 @@ end
 
 convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{Vector{R}}, x::Flex{S,Q,C}) = [convert(Tuple{R,R}, x)...]
 
-function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
-   lo,hi = convert(Tuple{R,R}, x)
-   if lo == hi
-      lo
-   else  
+function domainExtendedLogarithmicMean{R<:Real}(x::R,y::R)
+       lo,hi = minmax(x,y)
        if lo > 0.0
            #=
                using the logarithmic mean to condense the spanned interval into a representative floating point value
@@ -44,6 +43,14 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
               end
             end
         end    
+end
+
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
+   lo,hi = convert(Tuple{R,R}, x)
+   if lo == hi
+      lo
+   else  
+       domainExtendedLogarithmicMean(lo,hi)
     end
 end
 
