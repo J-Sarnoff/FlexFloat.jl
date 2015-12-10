@@ -1,50 +1,51 @@
-widened{S<:Sculpt,C<:Clay}(a::Flex{S,C}) = Flex{S,C}(prevFloat(a.lo), nextFloat(a.hi))
-function narrowed{S<:Sculpt,C<:Clay}(a::Flex{S,C})
+widened{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}) = Flex{S,Q,C}(prevFloat(a.lo), nextFloat(a.hi))
+
+function narrowed{S<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C})
    lo, hi = nextFloat(a.lo), prevFloat(a.hi)
    if (lo > hi)
        a
    else
-       Flex{S,C}(lo,hi)
+       Flex{S,Q,C}(lo,hi)
    end
 end
 
 # from "Complete Interval Arithmetic and its Implementation on the Computer" by Ulrich W. Kulisch
 
-function glb{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+function glb{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C})
     lo = min(x.lo,y.lo)
     hi = min(x.hi,y.hi)
-    Flex{S,C}(minmax(lo,hi)...)
+    Flex{S,Q,C}(minmax(lo,hi)...)
 end
 
-function lub{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+function lub{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C})
     lo = max(x.lo,y.lo)
     hi = max(x.hi,y.hi)
-    Flex{S,C}(minmax(lo,hi)...)
+    Flex{S,Q,C}(minmax(lo,hi)...)
 end
 
 # supremum (join, interval [convex] hull) and an infimum (meet, intersection).
-function supremum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+function supremum{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C})
     lo = min(x.lo,y.lo)
     hi = max(x.hi,y.hi)
-    Flex{S,C}(minmax(lo,hi)...)
+    Flex{S,Q,C}(minmax(lo,hi)...)
 end
 
-function infimum{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C})
+function infimum{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C})
     lo = max(x.lo,y.lo)
     hi = min(x.hi,y.hi)
-    Flex{S,C}(minmax(lo,hi)...)
+    Flex{S,Q,C}(minmax(lo,hi)...)
 end
 
 
 # from "Standardized notation in interval analysis", R. B. Kearfott, et. al.
 # width(diameter), radius, midpoint, mignitude, magnitude, deviation, absolutevalue
 
-dia{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)
-rad{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)/2
-mid{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (x.lo + x.hi)/2
-mig{S<:Sculpt, C<:Clay}(x::Flex{S,C}) =
+dia{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)
+rad{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.hi - x.lo)/2
+mid{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (x.lo + x.hi)/2
+mig{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) =
    (signbit(x.lo)==signbit(x.hi)) ? min(abs(x.lo), abs(x.hi)) : 0
-mag{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = max(abs(x.lo), abs(x.hi))
-dev{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
-abs{S<:Sculpt, C<:Clay}(x::Flex{S,C}) = Flex{S,C}(mig(x),mag(x))
-dist{S<:Sculpt, C<:Clay}(x::Flex{S,C}, y::Flex{S,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
+mag{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = max(abs(x.lo), abs(x.hi))
+dev{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
+abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}) = Flex{S,C}(mig(x),mag(x))
+dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C}, y::Flex{S,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
