@@ -1,12 +1,12 @@
 const Exactly   = "⌁"
 const Inexactly = "~"
-const Simply    = "˳"
-const Flexably = "⍿"
-const OpenAbove = "⫯"
-const OpenBelow = "⫰"
+const OpenedOpened = "⍿"
+const ClosedOpened = "⫯"
+const OpenedClosed = "⫰"
+const ClosedClosed = "∣"
 
-#                     ClCl      ClOp     OpCl      OpOp
-const Postfixes = [ Simply, OpenAbove, OpenBelow, Flexably ];
+#                        ClCl          ClOp            OpCl      OpOp
+const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
 @inline postfixes(loIsOpen::Bool, hiIsOpen::Bool) =
       Postfixes[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
@@ -14,10 +14,6 @@ const Postfixes = [ Simply, OpenAbove, OpenBelow, Flexably ];
 #   true for Open, false for Closed
 #                     ClCl      ClOp        OpCl      OpOp
 const Delimiters = [ ("⟨","⟩"), ("⟨","⟫"), ("⟪","⟩"), ("⟪","⟫") ];
-
-#                     ClCl      ClOp        OpCl      OpOp
-#const Delimiters = [ (Flexable, Flexable), (Flexable, OpenAbove), (OpenBelow, Flexable), (OpenBelow,OpenAbove) ];
-
 @inline delimiters(loIsOpen::Bool, hiIsOpen::Bool) =
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
