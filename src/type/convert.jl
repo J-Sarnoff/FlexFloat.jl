@@ -16,8 +16,8 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Array{C,1}}, x::Flex{S,Q,C}
    if Q==CLCL
        lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
    end 
-   lo = convert(R,lo)
-   hi = convert(R,hi)
+   lo = convert(C,lo)
+   hi = convert(C,hi)
    (lo,hi)
 end
 
