@@ -1,21 +1,47 @@
 #=  the Type realization underlying all FlexFloat computation  =#
 
+
+# C is Clay  , the base or substructural concrete type 
+# Q is Qualia, the manner of enhancement as abstract type
+# S is Sculpt, the art unfolding, qualia as dynamism guiding dispatch
+#
+abstract EnhancedFloat{C, S, Q} <: Real
+
+
 typealias Clay AbstractFloat # was Union{Float64,Float32}, other types can be added
 
-abstract EnhancedFloat <: Real
+#=
+   These Sculpts are as intervals,
+      bounded about lo and hi, covering amidst lo and hi.
+      
+   Each boundry either is Closed(Cl) or it is Open(Op).
+      Closed boundries include the bounding value.
+      Open boundries 'really' approach the bounding value, 
+         coming arbitrarily close, treating the separation
+         as if it were much less 1 ulp .. this is embodied
+         in the computational logic, treated much as open
+         bounded Real interval.
+=#
+abstract Sculpt
+
+type CLCL <: Sculpt end # [.......]
+type OPOP <: Sculpt end #  ).....(
+type OPCL <: Sculpt end #  )......]
+type CLOP <: Sculpt end # [......(
 
 #=
-          Sculpts are as intervals,
+          These Sculpts are as intervals,
           bounded about lo and hi, covering amidst lo and hi.
             Each boundry either is Closed(Cl) or it is Open(Op).
             e.g. ClOp(lo,hi) has a closed lower bound, and a open upper bound.
 =#
-abstract Sculpt <: EnhancedFloat
+abstract Sculpt
 
 type CLCL <: Sculpt end
 type CLOP <: Sculpt end
 type OPCL <: Sculpt end
 type OPOP <: Sculpt end
+
 
 abstract Supple{S,C} <: EnhancedFloat  # EnhancedFloat pulls in Real
          #        C parameterizes the internal arithmetic type at work
