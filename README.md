@@ -19,7 +19,7 @@ An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for OpOp.<
 The inexact interval Inexact(1,2) indicates any value within the Real range from prevfloat(1) to nextfloat(2), exclusively.
 
 #### Any values may exist in one of two states
-###### states 'exact', 'inexact' are exported;  'situated', 'enhanced' are the internal names
+###### states 'exact', 'inexact' are exported;  'situated', 'enhanced' are the internal names.
 
 *This capability exists transparently -- apps that do not need it do not see it.*
 
