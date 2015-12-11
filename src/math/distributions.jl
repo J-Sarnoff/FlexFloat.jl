@@ -12,7 +12,7 @@ pdf{S<:Sculpt, Q<:Qualia, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,Q,
 
    for (fn) in (:cdf,) # increasing functions
        @eval begin
-           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,QC})
+           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,Q,C})
                loIsOpen, hiIsOpen = boundries(S)
                if loIsOpen
                    with_rounding(C, RoundDown) do
