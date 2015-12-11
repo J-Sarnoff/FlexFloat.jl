@@ -13,14 +13,14 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Flex{S,Q,C}}, lo::Real, hi:
 end
 
 function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Array{C,1}}, x::Flex{S,Q,C})
-   lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+   lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
    lo = convert(C,lo)
    hi = convert(C,hi)
    (lo,hi)
 end
 
 function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
-   lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+   lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
    lo = convert(R,lo)
    hi = convert(R,hi)
    if lo == hi
