@@ -22,7 +22,7 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              sinh,cosh,tanh,csch,sech,coth,
              asinh,acosh,atanh,acsch,asech,acoth,
              gamma,lgamma,erf,erfinv,
-             start, next, done,
+             start, next, done
 
 
 export ClCl, ClOp, OpCl, OpOp,
