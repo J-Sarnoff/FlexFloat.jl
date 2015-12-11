@@ -49,9 +49,9 @@ for (fn,Q,S) in ( (:ClCl,:INEXACT,:CLCL), (:ClOp,:INEXACT,:CLOP), (:OpCl,:INEXAC
                   (:clcl,:EXACT,:CLCL), (:clop,:EXACT,:CLOP), (:opcl,:EXACT,:OPCL), (:opop,:EXACT,:OPOP) )
    @eval begin
        convert{C<:Clay}(::Type{Flex{$S,$Q,C}}, fp::C) = Flex{$S,$Q,C}(fp,fp)
-       convert{C<:Clay}(::Type{Flex{$S,$Q,C}}, lo::C, hi::C) = Flex{$S,$Q,C}(minimax(lo,hi)...)
+       convert{C<:Clay}(::Type{Flex{$S,$Q,C}}, lo::C, hi::C) = Flex{$S,$Q,C}(minmax(lo,hi)...)
        ($fn){C<:Clay}(fp::C) = Flex{$S,$Q,C}(fp,fp)
-       ($fn){C<:Clay}(lo::C, hi::C) = Flex{$S,$Q,C}(minimax(lo,hi)...)
+       ($fn){C<:Clay}(lo::C, hi::C) = Flex{$S,$Q,C}(minmax(lo,hi)...)
    end
 end
 
