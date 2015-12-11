@@ -103,39 +103,6 @@ end
    functions y=f(x) such that f(x+dx) > f(x) for dx>0 and f(x) defined for domainMin..x..Inf
 =#
 
-#= in arith
-for (fn, domainMin) in ((:sqrt, 0.0), )
-    @eval begin
-        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
-            if x.lo < ($domainMin)
-                throw(ErrorException("DomainError: $($fn) expected x.lo>=($($domainMin)), got $(x)."))
-            end
-            loIsOpen, hiIsOpen = boundries(S)
-            lo, hi = value(x)
-            if loIsOpen
-                with_rounding(C, RoundDown) do
-                    lo = ($fn)(lo)
-                end     
-            else
-                with_rounding(C, RoundNearest) do 
-                    lo = ($fn)(lo)
-                end     
-            end
-            if hiIsOpen
-                with_rounding(C, RoundUp) do
-                    hi = ($fn)(hi)
-                end     
-            else
-                with_rounding(C, RoundNearest) do 
-                    hi = ($fn)(hi)
-                end     
-            end
-            Flex{CLCL,Q,C}(lo,hi)
-        end
-    end
-end
-=#
-
 for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
     @eval begin
         function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
