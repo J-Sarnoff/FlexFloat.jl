@@ -61,6 +61,22 @@ end
 for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
     @eval begin
         ($Fn){C<:Clay}(fp::C) = Flex{$S,EXACT,C}(fp,fp)
+        convert{C<:Clay}(::Type{Flex{$S,EXACT,C},x::C) = Flex{$S,EXACT,C}(x,x)
+        convert{C<:Clay}(::Type{Flex{$S,EXACT,C},lo::C,hi::C) = Flex{$S,EXACT,C}(minmax(lo,hi)...)
+        convert{C<:Clay}(::Type{Flex{$S,EXACT,C},x::Flex{$S,INEXACT,C}) = Flex{$S,EXACT,C}(x.lo,x.hi)
+        
+        ($fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
+        convert{C<:Clay}(::Type{Flex{$S,INEXACT,C},x::C) = Flex{$S,INEXACT,C}(x,x)
+        convert{C<:Clay}(::Type{Flex{$S,INEXACT,C},lo::C,hi::C) = Flex{$S,INEXACT,C}(minmax(lo,hi)...)
+        convert{C<:Clay}(::Type{Flex{$S,INEXACT,C},x::Flex{$S,EXACT,C}) = Flex{$S,INEXACT,C}(x.lo,x.hi)
+        
+   end
+end
+
+
+#=
+        convert(::Type{Flex{$S,EXACT,C},x::Flex{$S,INEXACT,C}) = Flex{$S,EXACT,C}(x.lo,x.hi)
+        
         ($fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
         function ($Fn){C<:Clay}(lo::C,hi::C)
             lo,hi = minmax(lo,hi)
@@ -92,4 +108,6 @@ for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
             Flex{$S,INEXACT,Float64}(low,hig)
         end
     end
+=#
+
 end
