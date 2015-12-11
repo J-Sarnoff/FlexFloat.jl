@@ -23,8 +23,13 @@ The inexact interval Inexact(1,2) indicates any value within the Real range from
 *This capability exists transparently -- apps that do not need it do not see it.*
 
 Each Flex may be [re]assigned either of two states and the statefulness persists unless reassigned.
-There is no limit on state changes, nor any requirement that states change.  The state is independant of the kind of interval (ClCl, OpOp, ClOp, OpCl),  although one may create some logical dependance in code.
+There is no limit on state changes, nor any requirement that states change.  The state is independant of the kind of interval (ClCl, OpOp, ClOp, OpCl); one may create some logical dependance in code.
 
+```
+The assignment, determination and utilization of statefulness is entirely given to your application.
+
+The file 'src/type/foryouruse.jl' has the comparison and conversion defaults for statefulness.  This facility fully supports and maintains persisting stateful values without paradigmatic constraint.
+```
 
 
 
