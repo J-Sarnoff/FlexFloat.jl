@@ -4,6 +4,14 @@ qualia{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = Q
 clay{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})   = C
 value{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})  = (x.lo,x.hi)
 
+isexact{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = qualia(x) == EXACT
+isinexact{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = qualia(x) == INEXACT
+isclosedclosed{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = sculpt(x) == CLCL
+isclosedopen{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = sculpt(x) == CLOP
+isopenclosed{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = sculpt(x) == OPCL
+isopenopen{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = sculpt(x) == OPOP
+
+
 # each boundry is closed(false) or Open (true)
 # get boundries from Sculpt
 boundries(::Type{CLCL}) = (false,false)
