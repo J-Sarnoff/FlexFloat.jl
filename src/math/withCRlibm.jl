@@ -195,7 +195,7 @@ end
 #=
 for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (:acoth, -1.0, 1.0))
     @eval begin
-        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,C})
+        function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             if (($domainLoMax) < x.lo < ($domainHiMin)) | (($domainLoMax) < x.lo < ($domainHiMin))
                 throw(ErrorException("DomainError: $($fn) expected x.lo,x.hi outside [($($domainLoMax),$($domainHiMin))], got $(x)."))
             end
