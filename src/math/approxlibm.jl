@@ -24,7 +24,7 @@ for (fn) in (:exp, :expm1, :log, :log1p,
     @eval begin
         function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             lo = ($fn)(lo)
             hi = ($fn)(hi)
             if lo > hi
@@ -48,7 +48,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
             end
             loIsOpen, hiIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             lo = ($fn)(lo)
             hi = ($fn)(hi)
             if loIsOpen
