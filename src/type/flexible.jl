@@ -58,7 +58,7 @@ immutable Flex{S, Q, C<:Clay} <: Supple{S, Q}
 end
 
 
-for (Fn,fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
+for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
     @eval begin
         ($Fn){C<:Clay}(fp::C) = Flex{$S,EXACT,C}(fp,fp)
         ($fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
