@@ -30,7 +30,7 @@ export ClCl, ClOp, OpCl, OpOp,
        widened, narrowed, opened, closed,
        glb, lub, supremum, infimum,
        dia, rad, mid, mig, mag, dev, abs, dist,
-       values, qualia, sculpt, showmid
+       values, qualia, sculpt, showmid, showmidrad
 
 # provide these modular services
 include("module/AdjacentFloat/AdjacentFloat.jl")
@@ -52,10 +52,6 @@ include("type/convert.jl")
 include("type/interval.jl")
 include("type/compare.jl")
 include("type/io.jl")
-
-include("behavior/medium.jl")
-include("behavior/protenaxis.jl")
-include("behavior/proflect.jl")
 
 include("arith/valueops.jl")
 include("arith/add.jl")
