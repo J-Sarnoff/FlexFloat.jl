@@ -15,21 +15,24 @@ const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
 #   true for Open, false for Closed
 #                     ClCl      ClOp        OpCl      OpOp
 const Delimiters = [ ("▪","▪"), ("▪","▫"), ("▫","▪"), ("▫","▫") ];
+const Delimiters = [ ("⟨","⟩"),("⟨"","⟫"),("⟪","⟩"),("⟪","⟫") ];
 @inline delimiters(loIsOpen::Bool, hiIsOpen::Bool) =
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
 
 function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
-    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, tiesym)
+    loDelim,hiDelim = delimters(boundries(x)...)
+    s = (x.lo != x.hi) ? string(loDelim, x.lo, tiesym, x.hi, hiDelim) : string(loDelim, x.lo, tiesym, hiDelim)
     print(io, s)
 end
 
 function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    loDelim,hiDelim = delimters(boundries(x)...)
     lo = @sprintf("%7.5g", x.lo); lo = strip(lo)
     hi = @sprintf("%7.5g", x.hi); hi = strip(hi)
-    s = (x.lo != x.hi) ? string(lo, tiesym, hi) : string(lo, tiesym)
+    s = (x.lo != x.hi) ? string(loDelim, lo, tiesym, hi, hiDelim) : string(lo, tiesym)
     print(io, s)
 end
 
