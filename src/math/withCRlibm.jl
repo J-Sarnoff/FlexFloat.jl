@@ -19,7 +19,7 @@ for (fn) in (:acsc, :asec, :acot,
     @eval begin
         function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             lo = ($fn)(lo)
             hi = ($fn)(hi)
             if lo > hi
@@ -43,7 +43,7 @@ for (fn) in (:exp, :expm1, :atan, :sinh, :tanh)
         function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             loIsOpen, hiIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(x.lo, RoundDown)
             else
@@ -67,7 +67,7 @@ for (fn) in (:sin, :cos, :tan, :csc, :sec, :cot, :cosh)
     @eval begin
         function ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C})
             loIsOpen, hiIsOpen = boundries(S)
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(lo, RoundDown)
             else
@@ -81,7 +81,7 @@ for (fn) in (:sin, :cos, :tan, :csc, :sec, :cot, :cosh)
             # given the e.g. periodicity of (fn), it is possible that fn(x.lo) > fn(x.hi)
             if lo>hi
                 hiIsOpen, loIsOpen = boundries(S)
-                hi, lo = values(x)
+                hi, lo = value(x)
                 if loIsOpen
                     lo = ($fn)(lo, RoundDown)
                 else
@@ -111,7 +111,7 @@ for (fn, domainMin) in ((:sqrt, 0.0), )
                 throw(ErrorException("DomainError: $($fn) expected x.lo>=($($domainMin)), got $(x)."))
             end
             loIsOpen, hiIsOpen = boundries(S)
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 with_rounding(C, RoundDown) do
                     lo = ($fn)(lo)
@@ -144,7 +144,7 @@ for (fn, domainMin) in ((:log, 0.0), (:log1p, -1.0))
             end
             loIsOpen, hiIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(lo, RoundDown)
             else
@@ -174,7 +174,7 @@ for (fn, domainMin, domainMax) in ((:asin, -1.0, 1.0), (:atanh, -1.0, 1.0), (:er
             end
             loIsOpen, hiIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(lo, RoundDown)
             else
@@ -204,7 +204,7 @@ for (fn, domainMin, domainMax) in ((:acos, -1.0, 1.0),)
             # function is decreasing, so hi,lo sense is reversed
             hiIsOpen, loIsOpen = boundries(S)
             # round to nearest, make sure lo,hi are min(this,that), max(this,that) respectively
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(lo, RoundDown)
             else
@@ -234,7 +234,7 @@ for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (
             end
             # function is decreasing, so hi,lo sense is reversed
             loIsOpen, hiIsOpen = boundries(S)
-            lo, hi = values(x)
+            lo, hi = value(x)
             if loIsOpen
                 lo = ($fn)(lo, RoundDown)
             else
@@ -248,7 +248,7 @@ for (fn, domainLoMax, domainHiMin) in ((:acsc, -1.0, 1.0), (:asec, -1.0, 1.0), (
             # given the nature of (fn), it is quite possible that fn(x.lo) > fn(x.hi)
             if lo>hi
                 hiIsOpen,loIsOpen = boundries(S)
-                hi,lo = values(x)
+                hi,lo = value(x)
                 if loIsOpen
                     lo = ($fn)(lo, RoundDown)
                 else
