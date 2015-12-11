@@ -31,8 +31,9 @@ There is no limit on state changes, nor any requirement that states change.  The
             (titlecase is used with situated values, lowercase with enhanced values)
 
        Assignment, determination and utilization of statefulness is entirely given to your application.
+       
                   op(a,b) where isexact(a)&isinexact(b) and a,b are not of the same sculpture
-                  is not predefinded, nor are associated conversions .. encode your intent.
+                  is not predefinded, nor are associated conversions .. **encode your intent**.
 
 The file 'src/type/cvtqualia.jl' has the comparison and conversion defaults for statefulness.
 
