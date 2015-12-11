@@ -1,3 +1,4 @@
+const PlusMinus = "±"
 const Exactly   = "⌁"
 const Inexactly = "~"
 const OpenedOpened = "⍿"
@@ -17,37 +18,24 @@ const Delimiters = [ ("▪","▪"), ("▪","▫"), ("▫","▪"), ("▫","▫") 
 @inline delimiters(loIsOpen::Bool, hiIsOpen::Bool) =
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
-# when lo==hi, to indicate EXACT
-const Surrounds = [("⬩","⬩"), ("⬩","⬦"), ("⬦","⬩"),("⬦","⬦")];
-@inline surrounds(loIsOpen::Bool, hiIsOpen::Bool) =
-      Surrounds[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
 function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
-    delimLo, delimHi = delimiters(boundries(S)...)
-    aroundLo, aroundHi = delimLo, delimHi
-    if (Q==INEXACT)
-       tiesym = Inexactly
-       #aroundLo, aroundHi = delimLo, delimHi
-    else
-       tiesym = Exactly
-       #aroundLo, aroundHi = surrounds(boundries(S)...)
-    end       
+    tiesym = (Q==INEXACT) ? Inexactly : Exactly
     s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, tiesym)
     print(io, s)
 end
 
 function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
-    delimLo, delimHi = delimiters(boundries(S)...)
-    aroundLo, aroundHi = delimLo, delimHi
-    if (Q==INEXACT)
-       tiesym = Inexactly
-       #aroundLo, aroundHi = delimLo, delimHi
-    else
-       tiesym = Exactly
-       #aroundLo, aroundHi = surrounds(boundries(S)...)
-    end       
-    lo = @sprintf("%0.5g", x.lo)
-    hi = @sprintf("%0.5g", x.hi)
+    tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    lo = @sprintf("%7.5g", x.lo)
+    hi = @sprintf("%7.5g", x.hi)
     s = (x.lo != x.hi) ? string(lo, tiesym, hi) : string(lo, tiesym)
+    print(io, s)
+end
+
+function showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
+    md = @sprintf("%7.5g", mid(x))
+    rd = @sprintf("%7.5g", rad(x))
+    s = string(md, PlusMinus, rd)
     print(io, s)
 end
