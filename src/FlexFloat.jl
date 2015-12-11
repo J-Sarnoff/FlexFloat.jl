@@ -49,7 +49,7 @@ include("type/primitive.jl")
 include("type/convert.jl")
 include("type/interval.jl")
 include("type/compare.jl")
-include("type/customize.jl")
+include("type/condense.jl")
 include("type/foryouruse.jl")
 include("type/io.jl")
 
