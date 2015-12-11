@@ -40,21 +40,22 @@ The file 'src/type/foryouruse.jl' has the comparison and conversion defaults for
 ###Quick Guide
 
 ```julia
-# a closed boundry (an exact bound)  is shown with single angle brackets
-# an open boundry (an inexact bound) is shown with double angle brackets
-julia> ClCl(1,2), ClOp(1,2), OpCl(1,2), OpOp(1,2)
-( ⟨1.0, 2.0⟩, ⟨1.0, 2.0⟫, ⟪1.0, 2.0⟩, ⟪1.0, 2.0⟫ )
+#=
+   a closed boundry (an exact bound)  is shown with single angle brackets
+   an open boundry (an inexact bound) is shown with double angle brackets
 
-# when the lower bound and the upper bound are equal one number is shown
-# when the lower bound and the upper bound are equal, one may use it alone
-julia> ClCl(-1.5), ClOp(-1), OpCl(1), OpOp(1.5)
-( ⟨-1.5⟩, ⟨-1.0⟫, ⟪1.0⟩, ⟪1.5⟫ )
+   when the lower bound and the upper bound are equal one number is shown
+   when the lower bound and the upper bound are equal, one may use it alone
+   
+   values in the 'exact' state are tied with '⌁', '~' ties 'inexact' values
+=#
+
+julia> opop(1.2345,1.2346), ClCl(1), clcl(1,1), OpOp(1.2,1.2)
+(⟪1.2345⌁1.2346⟫,⟨1.0~⟩,⟨1.0⌁⟩,⟪1.2~⟫)
 
 # different sorts of values may be intermixed for arithmetic
-julia> a=ClCl(2); b=OpCl(1.5, 2); a+b, a-b, a*b, a/b
-( ⟪3.5, 4.0⟩, ⟨0.0, 0.5⟫, ⟪3.0, 4.0⟩, ⟪1.0, 1.3333333333333335⟩ )
-julia> a=OpCl(1.5, 2); b=2; a+b, a-b, a*b, a/b
-( ⟪3.5, 4.0⟩, -⟨0.5, 0.0⟫, ⟪3.0, 4.0⟩, ⟪0.75, 1.0⟩ )
+julia> a=ClCl(2); b=OpCl(1.5, 2); a-b, a*b, a/b
+(⟪0.0~0.5⟩,⟪3.0~4.0⟩,⟪1.0~1.3333333333333335⟩)
 
 ```
 
