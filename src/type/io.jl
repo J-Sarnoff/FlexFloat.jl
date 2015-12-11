@@ -32,7 +32,7 @@ function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
        tiesym = Exactly
        #aroundLo, aroundHi = surrounds(boundries(S)...)
     end       
-    s = (x.lo != x.hi) ? string(delimLo, x.lo, tiesym, x.hi, delimHi) : string(aroundLo,x.lo, aroundHi)
+    s = (x.lo != x.hi) ? string(x.lo, tiesym, x.hi) : string(x.lo, tiesym)
     print(io, s)
 end
 
@@ -48,6 +48,6 @@ function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     end       
     lo = @sprintf("%0.5g", x.lo)
     hi = @sprintf("%0.5g", x.hi)
-    s = (x.lo != x.hi) ? string(lo, tiesym, hi) : string(aroundLo, lo, aroundHi)
+    s = (x.lo != x.hi) ? string(lo, tiesym, hi) : string(lo, tiesym)
     print(io, s)
 end
