@@ -7,7 +7,7 @@
 =#
 
 function mostRepresentativeValue{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})
-    lo,hi = (Q==CLCL) ? values(x) : values(opened(x))
+    lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
     domainExtendedLogarithmicMean(lo,hi)
 end
 function mostRepresentativeValue{C<:Clay}(lo::C, hi::C)
