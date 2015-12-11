@@ -74,7 +74,7 @@ julia> exp(OpOp(1.0))
 julia> using CRlibm      # must preceed using FlexFloat
 julia> using FlexFloat
 julia> exp(OpOp(1.0))
-⟨2.718281828459045, 2.7182818284590455⟩ # diameter: 4.44e-16
+⟨2.718281828459045~2.7182818284590455⟩ # diameter: 4.44e-16
 
 # polynomial evaluation at FlexFloat values
 
