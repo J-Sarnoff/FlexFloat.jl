@@ -14,10 +14,8 @@ const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
 # select characters corresponding to boundries as specified (lo,hi)
 #   true for Open, false for Closed
 #                     ClCl      ClOp        OpCl      OpOp
-const Delimiters = [ ("▪","▪"), ("▪","▫"), ("▫","▪"), ("▫","▫") ];
-
+# const Delimiters = [ ("▪","▪"), ("▪","▫"), ("▫","▪"), ("▫","▫") ];
 const Delimiters = [ ( "⟨" , "⟩" ) , ( "⟨" , "⟫" ) ,  ( "⟪" , "⟩" ), ( "⟪" , "⟫" )  ];
-
 @inline delimiters(loIsOpen::Bool, hiIsOpen::Bool) =
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
 
