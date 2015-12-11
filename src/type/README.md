@@ -10,7 +10,7 @@
 | io | output |
 |    |        |
 | distill  | distill info (wrapped calls) |
-| foryouruse | qualia to qualify (see below) |
+| cvtQualia | qualia to qualify (see below) |
 
       In addition to being open or closed at each boundry,
       Intervals are qualified as EXACT or INEXACT.
