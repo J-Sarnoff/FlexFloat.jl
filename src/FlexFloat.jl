@@ -1,6 +1,6 @@
 module FlexFloat
 
-
+             #  more is imported than is overloaded
 import Base: ==, <, <=, -, +, *, /, %, ^,
              convert, promote_rule, promote_type, r_promote, 
              show, showcompact, string, parse,
@@ -23,7 +23,7 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              asinh,acosh,atanh,acsch,asech,acoth,
              gamma,lgamma,erf,erfinv,
              start, next, done,
-             reducedim_init  # could not import Base.iv
+
 
 export ClCl, ClOp, OpCl, OpOp,
        clcl, clop, opcl, opop,
