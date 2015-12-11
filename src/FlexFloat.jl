@@ -27,11 +27,10 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
 
 export ClCl, ClOp, OpCl, OpOp,
        clcl, clop, opcl, opop,
-       Flex, Sculpt, Clay, 
        widened, narrowed, opened, closed,
-       boundries, clay, sculpt, value,
        glb, lub, supremum, infimum,
-       dia, rad, mid, mig, mag, dev, abs, dist
+       dia, rad, mid, mig, mag, dev, abs, dist,
+       showmid
 
 # provide these modular services
 include("module/AdjacentFloat/AdjacentFloat.jl")
