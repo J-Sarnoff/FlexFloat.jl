@@ -75,9 +75,10 @@ end
 
 
 for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
+
     @eval begin
  
-         convert(::Type{Flex{$S,EXACT,C}},x::Flex{$S,INEXACT,C}) = Flex{$S,EXACT,C}(x.lo,x.hi)
+         convert{C<:Clay}(::Type{Flex{$S,EXACT,C}},x::Flex{$S,INEXACT,C}) = Flex{$S,EXACT,C}(x.lo,x.hi)
         
         ($fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
         function ($Fn){C<:Clay}(lo::C,hi::C)
