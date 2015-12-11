@@ -50,7 +50,7 @@ include("type/convert.jl")
 include("type/interval.jl")
 include("type/compare.jl")
 include("type/distill.jl")
-include("type/foryouruse.jl")
+include("type/cvtqualia.jl")
 include("type/io.jl")
 
 include("arith/valueops.jl")
