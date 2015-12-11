@@ -30,5 +30,5 @@ end
 (-){S<:Sculpt,Q<:Qualia,C<:Clay,T<:Real}(a::T, b::Flex{S,Q,C}) = (-)(Flex{S,Q,C}(convert(C,a)), b)
 
 (-){S<:Sculpt,T<:Sculpt,Q<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{T,Q,C}) = (-)(promote(a,b)...)
-(-){S<:Sculpt,Q<:Qualia,R<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,Q,C}) = (-)(promote(a,b)...)
+(-){S<:Sculpt,Q<:Qualia,R<:Qualia,C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (-)(promote(a,b)...)
 (-){S<:Sculpt,Q<:Qualia,C<:Clay,D<:Clay}(a::Flex{S,Q,C}, b::Flex{S,Q,D}) = (-)(promote(a,b)...)
