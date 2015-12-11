@@ -30,7 +30,7 @@ export ClCl, ClOp, OpCl, OpOp,
        widened, narrowed, opened, closed,
        glb, lub, supremum, infimum,
        dia, rad, mid, mig, mag, dev, abs, dist,
-       values, qualia, sculpt, showmid, showmidrad
+       value, qualia, sculpt, showmid, showmidrad
 
 # provide these modular services
 include("module/AdjacentFloat/AdjacentFloat.jl")
