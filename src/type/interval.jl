@@ -47,5 +47,5 @@ mig{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) =
    (signbit(x.lo)==signbit(x.hi)) ? min(abs(x.lo), abs(x.hi)) : 0
 mag{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = max(abs(x.lo), abs(x.hi))
 dev{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
-abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = Flex{S,C}(mig(x),mag(x))
-dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
+abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = Flex{S,Q,C}(mig(x),mag(x))
+dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
