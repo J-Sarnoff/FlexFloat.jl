@@ -50,7 +50,7 @@ for (fn,loa,lob,hia,hib) in [ (:divLteLte, :(a.hi), :(b.lo), :(a.lo), :(b.hi)),
         lo = (/)(($loa), ($lob), RoundDown)
         hi = (/)(($hia), ($hib), RoundUp)
 
-        Flex{cType,C}(lo, hi)
+        Flex{cType,Q,C}(lo, hi)
     end
   end
 end
