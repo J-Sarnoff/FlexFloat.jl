@@ -18,14 +18,14 @@ An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for OpOp.<
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this indicates any value within the Real range that extends from prevfloat(3) to nextfloat(3) without including either.</br>
 The inexact interval Inexact(1,2) indicates any value within the Real range from prevfloat(1) to nextfloat(2), exclusively.
 
-#### Values may exist in either of two states: situated and enhanced.
+#### Values may exist in either of two states: situated and enhanced (* or, exact and inexact *).
 
 *This capability exists transparently -- apps that do not need it do not see it.*
 
 Each Flex may be [re]assigned either of two states and the statefulness persists unless reassigned.
 There is no limit on state changes, nor any requirement that states change.  The state is independant of the kind of interval (ClCl, OpOp, ClOp, OpCl); one may create some logical dependance in code.
 
-       The assignment, determination and utilization of statefulness is entirely given to your application.
+       Assignment, determination and utilization of statefulness is entirely given to your application.
 
 The file 'src/type/foryouruse.jl' has the comparison and conversion defaults for statefulness.
  
