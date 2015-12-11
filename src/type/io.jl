@@ -36,7 +36,7 @@ function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     print(io, s)
 end
 
-function showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
+function showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
     md = @sprintf("%7.5g", mid(x)); md = strip(md)
     rd = @sprintf("%7.5g", rad(x)); rd = strip(rd)
@@ -44,9 +44,9 @@ function showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     print(io, s)
 end
 
-showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmid(STDOUT,x)
+showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmidrad(STDOUT,x)
 
-function showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
+function showmidpointradius{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
     md = mid(x)
     rd = rad(x)
@@ -54,5 +54,5 @@ function showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     print(io, s)
 end
 
-showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmidrad(STDOUT,x)
+showmidpointradius{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmidpointradius(STDOUT,x)
 
