@@ -6,8 +6,7 @@ function convert{S<:Sculpt,C<:Clay}(::Type{Flex{S,INEXACT,C}}, x::Flex{S,EXACT,C
    Flex{S,INEXACT,C}(widened(x)...)
 end
 
-promote_rule{S<:Sculpt, C<:Clay}(::Type{Flex{S,INEXACT,C}}, ::Type{Flex{S,EXACT,C}}) = Flex{S,INEXACT,C}
-
+promote_rule{S<:Sculpt,Q<:Qualia, R<:Qualia, C<:Clay}(::Type{Flex{S,Q,C}}, ::Type{Flex{S,R,C}}) = Flex{S,INEXACT,C}
 
 
 #=
@@ -23,4 +22,3 @@ promote_rule{S<:Sculpt, C<:Clay}(::Type{Flex{S,INEXACT,C}}, ::Type{Flex{S,EXACT,
 (isless){S<:Sculpt, Q<:Qualia, R<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a < b)
 (isequal){S<:Sculpt, Q<:Qualia, R<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a == b)
 
-promote_rule{S<:Sculpt, C<:Clay}(a::Flex{S,EXACT,C}, b::Flex{S,INEXACT,C}) = Flex{S,INEXACT,C}
