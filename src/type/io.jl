@@ -40,3 +40,16 @@ function showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     s = string(md, PlusMinus, rd)
     print(io, s)
 end
+
+showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmid(STDOUT,x)
+
+function showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
+    tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    md = mid(x)
+    rd = rad(x)
+    s  = string(md, PlusMinus, rd)
+    print(io, s)
+end
+
+showmidrad{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = showmidrad(STDOUT,x)
+
