@@ -22,3 +22,5 @@ promote_rule{S<:Sculpt, C<:Clay}(::Type{Flex{S,INEXACT,C}}, ::Type{Flex{S,EXACT,
 (> ){S<:Sculpt, Q<:Qualia, R<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = closed(a) > closed(b)
 (isless){S<:Sculpt, Q<:Qualia, R<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a < b)
 (isequal){S<:Sculpt, Q<:Qualia, R<:Qualia, C<:Clay}(a::Flex{S,Q,C}, b::Flex{S,R,C}) = (a == b)
+
+promote_rule{S<:Sculpt, C<:Clay}(a::Flex{S,EXACT,C}, b::Flex{S,INEXACT,C}) = Flex{S,INEXACT,C}
