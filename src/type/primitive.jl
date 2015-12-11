@@ -2,7 +2,7 @@
 sculpt{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = S
 qualia{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C}) = Q
 clay{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})   = C
-values{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})  = (x.lo,x.hi)
+value{S<:Sculpt, Q<:Qualia, C<:Clay}(x::Flex{S,Q,C})  = (x.lo,x.hi)
 
 # each boundry is closed(false) or Open (true)
 # get boundries from Sculpt
