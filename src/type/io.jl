@@ -27,15 +27,16 @@ end
 
 function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
-    lo = @sprintf("%7.5g", x.lo)
-    hi = @sprintf("%7.5g", x.hi)
+    lo = @sprintf("%7.5g", x.lo); lo = strip(lo)
+    hi = @sprintf("%7.5g", x.hi); hi = strip(hi)
     s = (x.lo != x.hi) ? string(lo, tiesym, hi) : string(lo, tiesym)
     print(io, s)
 end
 
 function showmid{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
-    md = @sprintf("%7.5g", mid(x))
-    rd = @sprintf("%7.5g", rad(x))
+    tiesym = (Q==INEXACT) ? Inexactly : Exactly
+    md = @sprintf("%7.5g", mid(x)); md = strip(md)
+    rd = @sprintf("%7.5g", rad(x)); rd = strip(rd)
     s = string(md, PlusMinus, rd)
     print(io, s)
 end
