@@ -102,7 +102,7 @@ pdf{S<:Sculpt, Q<:Qualia, C<:Clay}(d::Main.Distributions.Triweight, x::Flex{S,Q,
 
  for (fn) in (:quantile,) # increasing functions
        @eval begin
-           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,C})
+           function ($fn){S<:Sculpt, Q<:Qualia, C<:Clay}(d::Dist, x::Flex{S,Q,C})
                loIsOpen, hiIsOpen = boundries(S)
                if loIsOpen
                    loNearest = ($fn)(d, x.lo)
