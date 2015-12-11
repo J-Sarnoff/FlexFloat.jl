@@ -31,5 +31,10 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
 end
 
 
+for (fn) in (:ClCl, :ClOp, :OpCl, :OpOp, :clcl, :clop, :opcl, :clcl)
+   @eval begin
+       ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = ($fn)(x.lo,x.hi)
+   end
+end
 
 # see foryouruse.jl to access conversion logic when qualia differ
