@@ -38,10 +38,21 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
 end
 
 
-for (fn) in (:ClCl, :ClOp, :OpCl, :OpOp, :clcl, :clop, :opcl, :clcl)
+for (fn,S) in ( (:ClCl,:CLCL), (:ClOp,:CLOP), (:OpCl,:OPCL), (:OpOp,:OPOP),
+                (:clcl,:CLCL), (:clop,:CLOP), (:opcl,:OPCL), (:opop,:OPOP) )
    @eval begin
-       ($fn){S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = ($fn)(x.lo,x.hi)
+       ($fn){T<:($S),Q<:Qualia,C<:Clay}(x::Flex{T,Q,C}) = x
    end
 end
 
-# see foryouruse.jl to access conversion logic when qualia differ
+for (fn,Q,S) in ( (:ClCl,:INEXACT,:CLCL), (:ClOp,:INEXACT,:CLOP), (:OpCl,:INEXACT,:OPCL), (:OpOp,:INEXACT,:OPOP),
+                  (:clcl,:EXACT,:CLCL), (:clop,:EXACT,:CLOP), (:opcl,:EXACT,:OPCL), (:opop,:EXACT,:OPOP) )
+   @eval begin
+       convert{C<:Clay}(::Type{Flex{$S,$Q,C}}, fp::C) = Flex{$S,$Q,C}(fp,fp)
+       convert{C<:Clay}(::Type{Flex{$S,$Q,C}}, lo::C, hi::C) = Flex{$S,$Q,C}(minimax(lo,hi)...)
+       ($fn){T<:($S),P<:($Q),C<:Clay}(fp::C) = Flex{T,P,C}(fp,fp)
+       ($fn){T<:($S),P<:($Q),C<:Clay}(lo::C, hi::C) = Flex{T,P,C}(minimax(lo,hi)...)
+   end
+end
+
+# see cvtQualia.jl to access conversion logic when qualia differ
