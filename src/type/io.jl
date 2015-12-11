@@ -22,14 +22,14 @@ const Delimiters = [ ( "⟨" , "⟩" ) , ( "⟨" , "⟫" ) ,  ( "⟪" , "⟩" ),
 
 function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
-    loDelim,hiDelim = delimters(boundries(x)...)
+    loDelim,hiDelim = delimiters(boundries(x)...)
     s = (x.lo != x.hi) ? string(loDelim, x.lo, tiesym, x.hi, hiDelim) : string(loDelim, x.lo, tiesym, hiDelim)
     print(io, s)
 end
 
 function showcompact{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
     tiesym = (Q==INEXACT) ? Inexactly : Exactly
-    loDelim,hiDelim = delimters(boundries(x)...)
+    loDelim,hiDelim = delimiters(boundries(x)...)
     lo = @sprintf("%7.5g", x.lo); lo = strip(lo)
     hi = @sprintf("%7.5g", x.hi); hi = strip(hi)
     s = (x.lo != x.hi) ? string(loDelim, lo, tiesym, hi, hiDelim) : string(lo, tiesym)
