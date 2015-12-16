@@ -7,14 +7,14 @@ The underlying representation is an interval with bounds that may be closed (exa
 
 The package internals handle all of that without additional guidance.  There are four kinds of intervals:
 
-      (a) both bounds are exact (closed): ClCl(1,2)
-      (b) both bounds are inexact (open): OpOp(1,2)
-      (c) only the lower bound is exact : ClOp(1,2)
-      (d) only the upper bound is exact : OpCl(1,2)
+      (a) both bounds are exact (closed): clcl(1,2)
+      (b) both bounds are inexact (open): oppp(1,2)
+      (c) only the lower bound is exact : clop(1,2)
+      (d) only the upper bound is exact : opcl(1,2)
 
-An exact value of 1 is entered as Exact(1).  Exact is a synonym for ClCl.</br>
+An exact value of 1 is entered as Exact(1).  Exact is a synonym for clcl.</br>
 An interval with exact bounds of zero and one is entered as Exact(0,1).</br>
-An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for OpOp.</br>
+An inexact value of 3 is entered as Inexact(3).  Inexact is a synonym for opop.</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this indicates any value within the Real range that extends from prevfloat(3) to nextfloat(3) without including either.</br>
 The inexact interval Inexact(1,2) indicates any value within the Real range from prevfloat(1) to nextfloat(2), exclusively.
 
@@ -26,9 +26,9 @@ The inexact interval Inexact(1,2) indicates any value within the Real range from
 Each Flex may be [re]assigned either of two states and the statefulness persists unless reassigned.
 There is no limit on state changes, nor any requirement that states change.  The state is independant of the kind of interval (ClCl, OpOp, ClOp, OpCl); one may create some logical dependance in code. To simplify use, 
 
-            ClCl(), OpOp(), ClOp(), OpCl() create values in the 'exact' state
             clcl(), opop(), clop(), opcl() create values in the 'inexact' stat
-            (titlecase is used with situated values, lowercase with enhanced values)
+            ClCl(), OpOp(), ClOp(), OpCl() create values in the 'exact' state
+            (lowercase is used with situated values, titlecase with enhanced values)
 
        Assignment, determination and utilization of statefulness is entirely given to your application.
        
@@ -55,11 +55,11 @@ The file 'src/type/cvtqualia.jl' has the comparison and conversion defaults for 
 =#
 
 julia> opop(1.2345,1.2346), ClCl(1), clcl(1,1), OpOp(1.2,1.2)
-(⟪1.2345⌁1.2346⟫,⟨1.0~⟩,⟨1.0⌁⟩,⟪1.2~⟫)
+(⟪1.2345⌁1.2346⟫,⟨1.0⌁⟩,⟨1.0~⟩,⟪1.2~⟫)
 
 # different sorts of values may be intermixed for arithmetic
-julia> a=ClCl(2); b=OpCl(1.5, 2); a-b, a*b, a/b
-(⟪0.0~0.5⟩,⟪3.0~4.0⟩,⟪1.0~1.3333333333333335⟩)
+julia> a=clcl(2.0); b=opcl(1.5, 2.0); a-b, a*b, a/b
+(⟪0.0⌁0.5⟩,⟪3.0⌁4.0⟩,⟪1.0⌁1.3333333333333335⟩)
 
 # Flex64 is a typealias, it works like clcl()
 julia> Flex64(1.0)
