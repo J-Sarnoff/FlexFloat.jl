@@ -6,6 +6,9 @@ const ClosedOpened = "⫯"
 const OpenedClosed = "⫰"
 const ClosedClosed = "∣"
 
+const PosInfinity = "∞"
+const NegInfinity = "-∞"
+
 #                        ClCl          ClOp            OpCl      OpOp
 const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
 @inline postfixes(loIsOpen::Bool, hiIsOpen::Bool) =
@@ -18,6 +21,7 @@ const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
 const Delimiters = [ ( "⟨" , "⟩" ) , ( "⟨" , "⟫" ) ,  ( "⟪" , "⟩" ), ( "⟪" , "⟫" )  ];
 @inline delimiters(loIsOpen::Bool, hiIsOpen::Bool) =
       Delimiters[ one(Int8)+(reinterpret(Int8,loIsOpen)<<1)+hiIsOpen ]
+
 
 
 function show{S<:Sculpt, Q<:Qualia, C<:Clay}(io::IO, x::Flex{S,Q,C})
