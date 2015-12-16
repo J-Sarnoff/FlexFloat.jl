@@ -74,37 +74,52 @@ for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
 end
 
 
-for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
 
+for (Fn,fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:OpOp,:opop,:OPOP))
     @eval begin
- 
-         convert{C<:Clay}(::Type{Flex{$S,EXACT,C}},x::Flex{$S,INEXACT,C}) = Flex{$S,EXACT,C}(x.lo,x.hi)
-        
-        ($fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
-        function ($Fn){C<:Clay}(lo::C,hi::C)
+        ($fn){C<:Clay}(fp::C) = Flex{$S,EXACT,C}(fp,fp)
+        ($Fn){C<:Clay}(fp::C) = Flex{$S,INEXACT,C}(fp,fp)
+        function ($fn){C<:Clay}(lo::C,hi::C)
             lo,hi = minmax(lo,hi)
             Flex{$S,EXACT,C}(lo,hi)
         end
-        function ($fn){C<:Clay}(lo::C,hi::C)
+        function ($Fn){C<:Clay}(lo::C,hi::C)
             lo,hi = minmax(lo,hi)
             Flex{$S,INEXACT,C}(lo,hi)
         end
-        # convert other types to be Clay
-                function ($Fn)(fp::Real)
+        function ($fn)(fp::Real)
             fq = convert(Float64,fp)
             Flex{$S,EXACT,Float64}(fq,fq)
         end
-        function ($fn)(fp::Real)
+        function ($Fn)(fp::Real)
             fq = convert(Float64,fp)
             Flex{$S,INEXACT,Float64}(fq,fq)
         end
-        function ($Fn)(lo::Real,hi::Real)
+        function ($fn)(lo::Real,hi::Real)
             low = convert(Float64, lo)
             hig = convert(Float64, hi)
             low,hig = minmax(low,hig)
             Flex{$S,EXACT,Float64}(low,hig)
         end
-        function ($fn)(lo::Real,hi::Real)
+        function ($fn){R<:Real}(lo::R,hi::R)
+            low = convert(Float64, lo)
+            hig = convert(Float64, hi)
+            low,hig = minmax(low,hig)
+            Flex{$S,EXACT,Float64}(low,hig)
+        end
+        function ($Fn){R<:Real}(lo::R,hi::R)
+            low = convert(Float64, lo)
+            hig = convert(Float64, hi)
+            low,hig = minmax(low,hig)
+            Flex{$S,INEXACT,Float64}(low,hig)
+        end
+        function ($fn){R<:Real,S<:Real}(lo::R,hi::S)
+            low = convert(Float64, lo)
+            hig = convert(Float64, hi)
+            low,hig = minmax(low,hig)
+            Flex{$S,EXACT,Float64}(low,hig)
+        end
+        function ($Fn){R<:Real,S<:Real}(lo::R,hi::S)
             low = convert(Float64, lo)
             hig = convert(Float64, hi)
             low,hig = minmax(low,hig)
@@ -112,5 +127,6 @@ for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
         end
     end
 end
+
 
 typealias Flex64 Flex{CLCL,EXACT,Float64}
