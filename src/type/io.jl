@@ -8,6 +8,8 @@ const ClosedClosed = "∣"
 
 const PosInfinity = "∞"
 const NegInfinity = "-∞"
+const Empty = "∅"
+const Full  = "▣"
 
 #                        ClCl          ClOp            OpCl      OpOp
 const Postfixes = ( ClosedClosed, ClosedOpened, OpenedClosed, OpenedOpened );
