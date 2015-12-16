@@ -48,11 +48,6 @@ abstract Qualia  <: Art
 abstract EXACT   <: Qualia
 abstract INEXACT <: Qualia
 
-# provide Qualia for intervals with mixed boundaries
-abstract EXACTEXACT   <: Qualia
-abstract EXACTINEXACT <: Qualia
-abstract INEXACTEXACT <: Qualia
-abstract EXACTINEXACT <: Qualia
 
 abstract Supple{S<:Sculpt, Q<:Qualia} <: Real
 
