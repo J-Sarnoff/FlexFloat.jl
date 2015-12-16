@@ -25,7 +25,8 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              start, next, done
 
 
-export ClCl, ClOp, OpCl, OpOp,
+export Flex64,
+       ClCl, ClOp, OpCl, OpOp,
        clcl, clop, opcl, opop,
        widened, narrowed, opened, closed,
        glb, lub, supremum, infimum,
