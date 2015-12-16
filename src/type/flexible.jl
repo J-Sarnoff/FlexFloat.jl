@@ -54,7 +54,7 @@ abstract EXACTINEXACT <: Qualia
 abstract INEXACTEXACT <: Qualia
 abstract EXACTINEXACT <: Qualia
 
-abstract Supple{S<:Sculpt, Q<:Qualia}
+abstract Supple{S<:Sculpt, Q<:Qualia} <: Real
 
 #= Clay is extensible with Union{} =#    typealias Clay AbstractFloat
 
