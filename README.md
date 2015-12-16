@@ -61,6 +61,12 @@ julia> opop(1.2345,1.2346), ClCl(1), clcl(1,1), OpOp(1.2,1.2)
 julia> a=ClCl(2); b=OpCl(1.5, 2); a-b, a*b, a/b
 (⟪0.0~0.5⟩,⟪3.0~4.0⟩,⟪1.0~1.3333333333333335⟩)
 
+# Flex64 is a typealias, it works like clcl()
+julia> Flex64(1.0)
+⟨1.0⌁2.0⟩
+julia> Flex64(1.0,2.0)
+⟨1.0⌁2.0⟩
+
 ```
 
 ###And More
