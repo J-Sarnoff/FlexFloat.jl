@@ -26,6 +26,30 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Array{C,1}}, x::Flex{S,Q,C}
    [lo,hi]
 end
 
+# to eliminate ambiguity
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay,B<:Bool}(::Type{B}, x::Flex{S,Q,C})
+   lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
+   lo = lo != zero(C)
+   hi = hi != zero(C)
+   if lo == hi
+      lo
+   else  
+      false 
+   end
+end
+
+# to eliminate ambiguity
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay,I<:Integer}(::Type{I}, x::Flex{S,Q,C})
+   lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
+   lo = trunc(I,lo)
+   hi = trunc(I,hi)
+   if lo == hi
+      lo
+   else  
+      trunc(I, mostRepresentativeValue(x.lo,x.hi))
+   end
+end
+
 function convert{S<:Sculpt,Q<:Qualia,C<:Clay,R<:Real}(::Type{R}, x::Flex{S,Q,C})
    lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
    lo = convert(R,lo)
