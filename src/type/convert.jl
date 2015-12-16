@@ -26,27 +26,43 @@ function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Array{C,1}}, x::Flex{S,Q,C}
    [lo,hi]
 end
 
+
 # to eliminate ambiguity
-function convert{S<:Sculpt,Q<:Qualia,C<:Clay,B<:Bool}(::Type{B}, x::Flex{S,Q,C})
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Bool}, x::Flex{S,Q,C})
    lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
    lo = lo != zero(C)
    hi = hi != zero(C)
    if lo == hi
       lo
-   else  
-      false 
+   else
+      false
    end
 end
 
+for T in (:Int64, :Int32, :Int16)
+    @eval begin
+        function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{$T}, x::Flex{S,Q,C})
+           lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
+           lo = trunc($T,trunc(lo))
+           hi = trunc($T,trunc(hi))
+           if lo == hi
+              lo
+           else
+              trunc($T, trunc(mostRepresentativeValue(x.lo,x.hi)))
+           end
+        end
+    end
+end
+
 # to eliminate ambiguity
-function convert{S<:Sculpt,Q<:Qualia,C<:Clay,I<:Integer}(::Type{I}, x::Flex{S,Q,C})
+function convert{S<:Sculpt,Q<:Qualia,C<:Clay}(::Type{Integer}, x::Flex{S,Q,C})
    lo,hi = (Q==CLCL) ? value(x) : value(opened(x))
-   lo = trunc(I,lo)
-   hi = trunc(I,hi)
+   lo = trunc(Integer,lo)
+   hi = trunc(Integer,hi)
    if lo == hi
       lo
-   else  
-      trunc(I, mostRepresentativeValue(x.lo,x.hi))
+   else
+      trunc(Integer, trunc(mostRepresentativeValue(x.lo,x.hi)))
    end
 end
 
