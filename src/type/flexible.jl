@@ -50,7 +50,7 @@ abstract INEXACT <: Qualia
 
 # provide Qualia for intervals with mixed boundaries
 abstract EXACTEXACT   <: Qualia
-abstract EXACTINXACT  <: Qualia
+abstract EXACTINEXACT <: Qualia
 abstract INEXACTEXACT <: Qualia
 abstract EXACTINEXACT <: Qualia
 
