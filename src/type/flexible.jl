@@ -112,3 +112,5 @@ for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
         end
     end
 end
+
+typealias Flex64 Flex{CLCL,EXACT,Float64}
