@@ -134,3 +134,6 @@ end
 
 typealias Flex64 Flex{CLCL,EXACT,Float64}
 
+@vectorize_1arg Real OpOp
+@vectorize_1arg Real Flex64
+@vectorize_2arg Real Flex64
