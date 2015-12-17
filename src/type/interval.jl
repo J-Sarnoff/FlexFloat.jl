@@ -49,3 +49,11 @@ mag{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = max(abs(x.lo), abs(x.hi))
 dev{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = (abs(x.lo) >= abs(x.hi)) ? x.lo : x.hi
 abs{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}) = Flex{S,Q,C}(mig(x),mag(x))
 dist{S<:Sculpt,Q<:Qualia,C<:Clay}(x::Flex{S,Q,C}, y::Flex{S,Q,C}) = max(abs(x.lo-y.lo), abs(x.hi-y.hi))
+
+for fn in (:widened, :narrowed, :opened, :closed, :glb, :lub, :supremum, :infimum,
+           :dia, :rad, :mid, :mig, :mag, :dev, :abs, :dist, :value, :isexact, :isinexact,
+           :isclosedclosed, :isclosedopen, :isopenclosed, :isopenopen)
+    @eval begin
+        @vectorize_1arg Flex ($fn)
+    end
+end    
