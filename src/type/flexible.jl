@@ -137,3 +137,10 @@ typealias Flex64 Flex{CLCL,EXACT,Float64}
 @vectorize_1arg Real OpOp
 @vectorize_1arg Real Flex64
 @vectorize_2arg Real Flex64
+
+for fn in (:opop, :opcl, :clop, :opcl, :OpOp, :OpCl, :ClOp, :ClCl)
+    @eval begin
+         @vectorize_1arg  Real ($fn)
+         @vectorize_2args Real ($fn)
+    end
+end    
