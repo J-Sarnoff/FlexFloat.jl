@@ -71,6 +71,8 @@ for (fn,Fn,S) in ((:ClCl,:clcl,:CLCL),(:ClOp,:clop,:CLOP),(:OpCl,:opcl,:OPCL),(:
         convert{C<:Clay}(::Type{Flex{$S,INEXACT,C}},lo::C,hi::C) = Flex{$S,INEXACT,C}(minmax(lo,hi)...)
         convert{C<:Clay}(::Type{Flex{$S,INEXACT,C}},x::Flex{$S,EXACT,C}) = Flex{$S,INEXACT,C}(x.lo,x.hi)
         
+        @vectorize_1arg  Real Flex{$S,EXACT,Float64} 
+        @vectorize_2args Real Flex{$S,EXACT,Float64} 
    end
 end
 
@@ -131,3 +133,4 @@ end
 
 
 typealias Flex64 Flex{CLCL,EXACT,Float64}
+
