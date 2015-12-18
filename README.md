@@ -1,4 +1,4 @@
-# FlexFloat.jl
+# FlexFloat.jl       !!I am modifying the code -- peruse rather than use!!
 ####
 
 #### These are values that stretch preserve accuracy.
