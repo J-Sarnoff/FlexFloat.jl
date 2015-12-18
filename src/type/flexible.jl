@@ -130,8 +130,9 @@ end
 
 
 typealias Flex64 Flex{CLCL,EXACT,Float64}
+typealias Flux64 Flex{OPOP,INEXACT,Float64}
 
-for fn in (:opop, :opcl, :clop, :opcl, :OpOp, :OpCl, :ClOp, :ClCl)
+for fn in (:clcl, :opcl, :clop, :opop, :ClCl, :OpCl, :ClOp, :OpOp)
     @eval begin
          @vectorize_1arg Real ($fn)
          @vectorize_2arg Real ($fn)
