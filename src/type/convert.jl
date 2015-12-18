@@ -101,7 +101,6 @@ end
 # promoting to a third type
 
 for C in (:Float64, :Float32)
- @eval begin
   for (S,T,U) in ((:Flex{CLCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
                   (:Flex{CLOP,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
                   (:Flex{CLCL,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
@@ -119,7 +118,6 @@ for C in (:Float64, :Float32)
        convert(::Type{$U}, x::($S)) = ($U)(x.lo,x.hi)
        promote_rule{::Type{$S},::Type{$T}} = ($U)
      end
-    end  
    end  
 end
 
