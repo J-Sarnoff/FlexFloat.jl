@@ -1,7 +1,7 @@
 module FlexFloat
 
              #  more is imported than is overloaded
-import Base: ==, <, <=, -, +, *, /, %, ^,
+import Base: -, +, *, /, %, ^,
              convert, promote_rule, promote_type, r_promote, 
              show, showcompact, string, parse,
              frexp, ldexp,
@@ -12,9 +12,9 @@ import Base: ==, <, <=, -, +, *, /, %, ^,
              typemin, typemax, realmin, realmax,
              zero, one,  eps,
              sizeof, reinterpret,
+             isequal,isless, (!=),(>=),(>),(<=),(<),(==),             
              trunc, round, floor, ceil,
              fld, rem, mod, mod1, rem1, fld1, 
-             isequal,isless, (!=),(>=),(>),(<=),(<),(==),
              min, max, minmax,
              sqrt,exp,expm1,log,log1p,
              sin,cos,tan,csc,sec,cot,
