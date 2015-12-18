@@ -1,5 +1,5 @@
 # FlexFloat.jl   
-###**!!  I am modifying the code -- for now, please peruse rather than use  !!**
+<HUGE>**!!  I am modifying the code -- for now, please peruse rather than use  !!**</HUGe>
 ####
 
 #### These are values that stretch preserve accuracy.
