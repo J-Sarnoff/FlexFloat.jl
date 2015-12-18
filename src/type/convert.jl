@@ -102,18 +102,18 @@ end
 
 for C in (:Float64, :Float32)
   @eval begin
-  for (S,T,U) in ((:Flex{CLCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLOP,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLCL,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{OPCL,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLCL,EXACT,($C)},:Flex{OPOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{OPOP,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLOP,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{OPCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLOP,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{OPCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)),
-                  (:Flex{CLOP,EXACT,($C)},:Flex{OPOP,INEXACT,($C)}, :Flex{CLOP,INEXACT,($C)),
-                  (:Flex{OPOP,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLOP,INEXACT,($C))
+  for (S,T,U) in ((:Flex{CLCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLOP,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLCL,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{OPCL,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLCL,EXACT,($C)},:Flex{OPOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{OPOP,EXACT,($C)},:Flex{CLCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLOP,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{OPCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLOP,EXACT,($C)},:Flex{OPCL,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{OPCL,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLCL,INEXACT,($C)}),
+                  (:Flex{CLOP,EXACT,($C)},:Flex{OPOP,INEXACT,($C)}, :Flex{CLOP,INEXACT,($C)}),
+                  (:Flex{OPOP,EXACT,($C)},:Flex{CLOP,INEXACT,($C)}, :Flex{CLOP,INEXACT,($C)})
                   )
      @eval begin
        convert(::Type{$U}, x::($S)) = ($U)(x.lo,x.hi)
