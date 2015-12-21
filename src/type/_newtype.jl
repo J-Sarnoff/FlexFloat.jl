@@ -21,7 +21,3 @@ end
 
 # fi = FlexibleInterval( 0.0f0, 1.0f0, ExactBound, ClosedBound )
 
-  hi::Interval{FP}
-
-  Interval() = (x = new(); x.obj = x)
-end
