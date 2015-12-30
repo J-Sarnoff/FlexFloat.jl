@@ -1,12 +1,7 @@
 # FlexFloat.jl   
-<HUGE><em>!!  I am modifying the code -- for now, please peruse rather than use  !!**</em></HUGe>
 ####
 
-accomodate to just work well with Quaternions, DualNumbers
 
-support tiny, huge
-vectorize showcompact, showmidrad, showmidpointradius
-activate log2, log10 
 
 
 #### These are values that stretch preserve accuracy.
